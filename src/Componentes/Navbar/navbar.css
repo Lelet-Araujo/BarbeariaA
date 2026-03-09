@@ -1,0 +1,70 @@
+.navbar {
+  height: 60px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 40px;
+  background-color: #346C73;
+  border-bottom: 2px solid #A3C9D9;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 500;
+  box-sizing: border-box;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.45);
+}
+
+.navbar-logo {
+  font-size: 20px;
+  font-weight: 700;
+  color: white;
+}
+
+.login-button {
+  padding: 10px 23px;
+  margin-right: 0%;
+  background-color: #6A9BA6;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: 0.2s;
+}
+
+.login-button:hover {
+  background-color: #103B40;
+}
+
+/* overlay do fundo */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(4px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* wrapper do card para animação */
+.card-wrapper {
+  transition: transform 0.4s ease, opacity 0.4s ease;
+  transform: scale(0.8);
+  opacity: 0;
+  will-change: transform, opacity;
+}
+
+.card-wrapper.zoom-in {
+  transform: scale(1);
+  opacity: 1;
+}
+
+.card-wrapper.zoom-out {
+  transform: scale(0.8);
+  opacity: 0;
+}

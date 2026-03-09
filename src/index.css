@@ -1,0 +1,34 @@
+html, body{
+  margin:0;
+  padding:0;
+  min-height:100%;
+
+  --font-montserrat: 'Montserrat', sans-serif;
+  --font-prata: 'Prata', serif;
+}
+
+body{
+  background:
+    radial-gradient(circle at top, rgba(255,255,255,0.08), transparent 60%),
+    linear-gradient(
+      180deg,
+      #3a3a3a 0%,
+      #202020 50%,
+      #09080c 100%
+    );
+
+  background-attachment: fixed;
+}
+
+/*******************************************************
+AJUSTES DO NAVEGADOR
+*******************************************************/
+
+/* Remover olhinho de senha do navegador */
+input::-webkit-credentials-auto-fill-button,
+input::-ms-reveal,
+input::-ms-clear {
+  display: none !important;
+  visibility: hidden;
+  pointer-events: none;
+}
