@@ -12,7 +12,8 @@ body {
   width: 100%;
   display: flex;
   justify-content: center;
-  perspective: 1500px; /* necessário para flip 3D */
+  perspective: 1500px;
+  /* necessário para flip 3D */
 }
 
 /********************************************************** CARD / FLIP **********************************************************/
@@ -219,52 +220,76 @@ body {
 /********************************************************** CADASTRO **********************************************************/
 .login-card-back .login-left {
   width: 100%;
-  max-width: 100%;
+  max-width: 720px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
+/* Botões para escolher tipo de cadastro */
+.tipo-cadastro {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.tipo-cadastro button {
+  padding: 12px 30px;
+  border-radius: 20px;
+  border: none;
+  background: #103b40;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.tipo-cadastro button:hover {
+  background: #012326;
+}
+
+/* Grid de cadastro com duas colunas */
+/* Grid de cadastro com duas colunas */
 .register-grid {
   width: 100%;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 30px;
+  gap: 20px;
   align-items: start;
+  margin-top: 10px;
+  position: relative;
+  /* para poder posicionar o botão */
 }
 
-.register-fields {
-  width: 100%;
+/* Colunas de inputs */
+.register-column {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.register-google {
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  padding-top: 150px;
+/* Inputs menores para caber na grid */
+.register-column .input-group,
+.register-column .input-with-icon {
+  width: 280px;
 }
 
-.google-btn {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  padding: 16px 70px;
-  border: none;
-  border-radius: 30px;
-  background: #103b40;
-  color: #ffffff;
-  font-size: 16px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: 0.3s;
+.register-column .input-group input,
+.register-column .input-with-icon input {
+  width: 100%;
+  padding: 12px 35px 12px 10px;
+  font-size: 15px;
 }
 
-.google-btn img {
-  width: 25px;
-}
-
-.google-btn:hover {
-  background-color: #012326;
+/* Botão de cadastro centralizado abaixo das colunas */
+.register-btn {
+  width: 280px;
+  padding: 12px;
+  margin: -20px auto 0 auto;
+  /* centraliza horizontalmente */
+  grid-column: 1 / -1;
+  /* faz o botão ocupar as duas colunas */
 }
 
 /*********************************************************** ÍCONES **********************************************************/
@@ -293,11 +318,12 @@ body {
   cursor: pointer;
   z-index: 10;
   filter: brightness(0) invert(1);
-  transition: transform 0.2s ease;
+  cursor: pointer;
+  transition: 0.3s;
 }
 
 .back-arrow:hover {
-  transform: translateX(-4px);
+  filter: brightness(0) invert(0);
 }
 
 .google-icon {
@@ -305,5 +331,19 @@ body {
   height: 22px;
   object-fit: contain;
   filter: brightness(0) invert(1);
+}
+
+/* Ajuste inputs LOGIN para o tamanho do cadastro */
+.login-card-front .input-group,
+.login-card-front .input-with-icon {
+  width: 280px;
+}
+
+.login-card-front .input-group input,
+.login-card-front .input-with-icon input {
+  width: 100%;
+  padding: 12px 35px 12px 10px;
+  /* igual ao cadastro */
+  font-size: 15px;
 }
 

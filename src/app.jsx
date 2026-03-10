@@ -1,7 +1,8 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
-import NavBar from "./Componentes/Navbar/navbar";
-import CardCadastro from "./pages/CardCadastro/CardCadastro";
+import NavBar from "./Controle da loja/ComponentsCL/NavbarCL/navbarCL";
+import CardCadastro from "./Controle da loja/ComponentsCL/CardCadastroCL/CardCadastroCL";
+import CardAgendamento from "./Controle da loja/ComponentsCL/CardAgendamentoCL/CardAgendaCL";
 
 export default function App() {
   return (
@@ -10,6 +11,7 @@ export default function App() {
 
       <Routes>
         <Route path="/login" element={<CardCadastro />} />
+        <Route path="/agendar" element={<CardAgendamento />} />
       </Routes>
     </>
   );

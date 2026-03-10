@@ -21,20 +21,37 @@
   color: white;
 }
 
-.login-button {
+/* Container para os botões */
+.navbar-buttons {
+  display: flex;
+  gap: 10px; /* Espaço entre os botões */
+}
+
+.login-button, .agendar-button {
   padding: 10px 23px;
-  margin-right: 0%;
-  background-color: #6A9BA6;
-  color: white;
   border: none;
   border-radius: 6px;
   cursor: pointer;
   font-weight: 500;
   transition: 0.2s;
+  color: white;
+}
+
+/* Botões individuais */
+.login-button {
+  background-color:#103B40 ;
 }
 
 .login-button:hover {
-  background-color: #103B40;
+  background-color:#6A9BA6 ;
+}
+
+.agendar-button {
+  background-color: #103B40; /* coral elegante para diferenciar */
+}
+
+.agendar-button:hover {
+  background-color: #6A9BA6;
 }
 
 /* overlay do fundo */

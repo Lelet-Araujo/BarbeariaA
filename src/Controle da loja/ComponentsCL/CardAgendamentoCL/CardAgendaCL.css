@@ -1,0 +1,136 @@
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.agendamento-card {
+  width: 400px;
+  padding: 30px 25px;
+  border-radius: 12px;
+  background: linear-gradient(150deg, #012326, #d1f1ff);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 4px 15px rgba(0, 0, 0, 0.3);
+  color: white;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.agendamento-card h2 {
+  margin-bottom: 20px;
+  font-size: 28px;
+  text-align: center;
+}
+
+.input-group {
+  width: 100%;
+  margin-bottom: 18px;
+  display: flex;
+  flex-direction: column;
+}
+
+.input-group label {
+  margin-bottom: 6px;
+  font-size: 14px;
+}
+
+.input-with-icon {
+  position: relative;
+  width: 100%;
+}
+
+.input-with-icon input {
+  width: 100%;
+  padding: 10px 40px 10px 10px;
+  border-radius: 20px;
+  border: 2px solid #a3c9d9;
+  background: transparent;
+  color: white;
+  font-size: 15px;
+  box-sizing: border-box;
+}
+
+.input-with-icon input::placeholder {
+  color: #ffffff75;
+}
+
+.icon-right {
+  position: absolute;
+  right: 12px;
+  width: 20px;
+  height: 20px;
+  filter: brightness(0) invert(1);
+  cursor: pointer;
+}
+
+.agendar-btn {
+  width: 100%;
+  padding: 12px;
+  margin-top: 10px;
+  border-radius: 20px;
+  border: none;
+  background-color: #103b40;
+  font-weight: bold;
+  color: white;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.agendar-btn:hover {
+  background-color: #012326;
+}
+
+.close-icon {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 28px;
+  height: 28px;
+  cursor: pointer;
+  filter: brightness(0) invert(1);
+  transition: 0.3s;
+}
+
+.close-icon:hover {
+  filter: brightness(1.2) invert(1);
+}
+
+
+/* Para inputs de data e hora */
+input[type="date"],
+input[type="time"] {
+  -webkit-appearance: none; /* Chrome, Safari */
+  -moz-appearance: textfield; /* Firefox */
+  appearance: none; /* padrão */
+  background: transparent; /* mantém o fundo transparente do seu card */
+  color: white; /* mantém o texto visível */
+  border: 2px solid #a3c9d9;
+  border-radius: 20px;
+  padding: 10px 40px 10px 10px;
+  font-size: 15px;
+}
+
+/* Remove o ícone de calendário do IE/Edge */
+input[type="date"]::-ms-clear,
+input[type="date"]::-ms-expand,
+input[type="time"]::-ms-clear,
+input[type="time"]::-ms-expand {
+  display: none;
+}
+
+/* Remove os ícones nativos no Chrome/Safari */
+input[type="date"]::-webkit-inner-spin-button,
+input[type="date"]::-webkit-calendar-picker-indicator,
+input[type="time"]::-webkit-inner-spin-button,
+input[type="time"]::-webkit-calendar-picker-indicator {
+  display: none;
+  -webkit-appearance: none;
+}
