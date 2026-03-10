@@ -4,6 +4,7 @@ import NavBar from "./Controle da loja/ComponentsCL/NavbarCL/navbarCL";
 import CardCadastro from "./Controle da loja/ComponentsCL/CardCadastroCL/CardCadastroCL";
 import CardAgendamento from "./Controle da loja/ComponentsCL/CardAgendamentoCL/CardAgendaCL";
 
+
 export default function App() {
   return (
     <>
