@@ -7,18 +7,39 @@ import userIcon from "../../assetsCL/user.png";
 import phoneIcon from "../../assetsCL/phone.png";
 
 export default function CardAgendamento({ onClose }) {
+
   const [data, setData] = useState("");
   const [hora, setHora] = useState("");
   const [nome, setNome] = useState("");
   const [telefone, setTelefone] = useState("");
+  const [barbeiro, setBarbeiro] = useState("");
 
-  // refs para os inputs de data e hora
   const dataRef = useRef(null);
   const horaRef = useRef(null);
+
+  const barbeiros = [
+    "Carlos",
+    "João",
+    "Marcos",
+    "Fernando"
+  ];
+
+  const confirmarAgendamento = () => {
+    const agendamento = {
+      nome,
+      telefone,
+      barbeiro,
+      data,
+      hora
+    };
+
+    console.log("Agendamento:", agendamento);
+  };
 
   return (
     <div className="container">
       <div className="agendamento-card">
+
         <img
           src={closeIcon}
           alt="Fechar"
@@ -48,12 +69,46 @@ export default function CardAgendamento({ onClose }) {
           <div className="input-with-icon">
             <input
               type="tel"
-              placeholder="(XX) XXXX - XXXX"
+              placeholder="(00) 0000 - 0000"
               value={telefone}
-              onChange={(e) => setTelefone(e.target.value)}
-              maxLength={14}
+              maxLength={16}
+              onInput={(e) => {
+                let x = e.target.value.replace(/\D/g, "");
+                if (x.length > 11) x = x.slice(0, 11);
+
+                if (x.length > 10) {
+                  e.target.value = `(${x.slice(0, 2)}) ${x.slice(2, 7)} - ${x.slice(7)}`;
+                } else if (x.length > 6) {
+                  e.target.value = `(${x.slice(0, 2)}) ${x.slice(2, 6)} - ${x.slice(6)}`;
+                } else if (x.length > 2) {
+                  e.target.value = `(${x.slice(0, 2)}) ${x.slice(2)}`;
+                } else if (x.length > 0) {
+                  e.target.value = `(${x}`;
+                }
+
+                setTelefone(e.target.value);
+              }}
             />
             <img src={phoneIcon} alt="Telefone" className="icon-right" />
+          </div>
+        </div>
+
+        {/* Barbeiro */}
+        <div className="input-group">
+          <label>Barbeiro</label>
+          <div className="input-with-icon">
+            <select
+              className="select-barbeiro"
+              value={barbeiro}
+              onChange={(e) => setBarbeiro(e.target.value)}
+            >
+              <option value="">Escolha um barbeiro</option>
+              {barbeiros.map((b, index) => (
+                <option key={index} value={b}>
+                  {b}
+                </option>
+              ))}
+            </select>
           </div>
         </div>
 
@@ -71,7 +126,11 @@ export default function CardAgendamento({ onClose }) {
               src={calendarIcon}
               alt="Data"
               className="icon-right"
-              onClick={() => dataRef.current && dataRef.current.showPicker && dataRef.current.showPicker()}
+              onClick={() =>
+                dataRef.current &&
+                dataRef.current.showPicker &&
+                dataRef.current.showPicker()
+              }
             />
           </div>
         </div>
@@ -90,12 +149,22 @@ export default function CardAgendamento({ onClose }) {
               src={clockIcon}
               alt="Hora"
               className="icon-right"
-              onClick={() => horaRef.current && horaRef.current.showPicker && horaRef.current.showPicker()}
+              onClick={() =>
+                horaRef.current &&
+                horaRef.current.showPicker &&
+                horaRef.current.showPicker()
+              }
             />
           </div>
         </div>
 
-        <button className="agendar-btn">Confirmar Agendamento</button>
+        <button
+          className="agendar-btn"
+          onClick={confirmarAgendamento}
+        >
+          Confirmar Agendamento
+        </button>
+
       </div>
     </div>
   );

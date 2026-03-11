@@ -153,15 +153,20 @@ export default function LoginCard({ onClose }) {
                       placeholder="(00) 0000-0000"
                       maxLength={16} // conta também parênteses e traço
                       onInput={(e) => {
-                        let x = e.target.value.replace(/\D/g, ""); // só números
-                        if (x.length > 10) x = x.slice(0, 10); // limita a 10 dígitos
-                        if (x.length > 6) {
+                        let x = e.target.value.replace(/\D/g, "");
+                        if (x.length > 11) x = x.slice(0, 11);
+
+                        if (x.length > 10) {
+                          e.target.value = `(${x.slice(0, 2)}) ${x.slice(2, 7)} - ${x.slice(7)}`;
+                        } else if (x.length > 6) {
                           e.target.value = `(${x.slice(0, 2)}) ${x.slice(2, 6)} - ${x.slice(6)}`;
                         } else if (x.length > 2) {
                           e.target.value = `(${x.slice(0, 2)}) ${x.slice(2)}`;
                         } else if (x.length > 0) {
                           e.target.value = `(${x}`;
                         }
+
+                        setTelefone(e.target.value);
                       }}
                     />
                     <img src={phone} alt="Telefone" className="icon-right" />
