@@ -1,7 +1,7 @@
 // FuncionarioPage.jsx
 import React, { useState } from "react";
 import "./Funcionarios.css";
-import NavbarSimples from "../ComponentsCL/NavbarCLGeral/NavbarCLGeral"; // import da navbar
+import NavbarSimples from "../2Components/NavBarLoja/NavbarLoja"; // import da navbar
 
 export default function FuncionarioPage() {
     const [funcionarios, setFuncionarios] = useState([

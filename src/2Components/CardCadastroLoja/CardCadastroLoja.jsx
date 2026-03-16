@@ -1,14 +1,14 @@
 import React, { useState } from "react";
-import "./CardCadastroCL.css";
+import "./CardCadastroLoja.css";
 
-import user from "../../assetsCL/user.png";
-import closeIcon from "../../assetsCL/close.png";
-import hide from "../../assetsCL/hide.png";
-import show from "../../assetsCL/show.png";
-import arrow from "../../assetsCL/arrow.png";
-import email from "../../assetsCL/email.png";
-import phone from "../../assetsCL/phone.png";
-import padlock from "../../assetsCL/padlock.png";
+import user from "../../1Assets/user.png";
+import closeIcon from "../../1Assets/close.png";
+import hide from "../../1Assets/hide.png";
+import show from "../../1Assets/show.png";
+import arrow from "../../1Assets/arrow.png";
+import email from "../../1Assets/email.png";
+import phone from "../../1Assets/phone.png";
+import padlock from "../../1Assets/padlock.png";
 
 
 export default function LoginCard({ onClose }) {

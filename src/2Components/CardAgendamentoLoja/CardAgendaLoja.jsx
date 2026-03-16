@@ -1,10 +1,10 @@
 import React, { useState, useRef } from "react";
-import "./CardAgendaCL.css";
-import closeIcon from "../../assetsCL/close.png";
-import calendarIcon from "../../assetsCL/calendar.png";
-import clockIcon from "../../assetsCL/clock.png";
-import userIcon from "../../assetsCL/user.png";
-import phoneIcon from "../../assetsCL/phone.png";
+import "./CardAgendaLoja.css";
+import closeIcon from "../../1Assets/close.png";
+import calendarIcon from "../../1Assets/calendar.png";
+import clockIcon from "../../1Assets/clock.png";
+import userIcon from "../../1Assets/user.png";
+import phoneIcon from "../../1Assets/phone.png";
 
 export default function CardAgendamento({ onClose }) {
 
