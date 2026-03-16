@@ -172,13 +172,6 @@ export default function LoginCard({ onClose }) {
                     <img src={phone} alt="Telefone" className="icon-right" />
                   </div>
                 </div>
-                <div className="input-group">
-                  <label>Endereço</label>
-                  <div className="input-with-icon">
-                    <input type="text" placeholder="Rua, número, bairro" />
-                    <img src={user} alt="Endereço" className="icon-right" />
-                  </div>
-                </div>
 
                 <div className="input-group">
                   <label>Senha</label>

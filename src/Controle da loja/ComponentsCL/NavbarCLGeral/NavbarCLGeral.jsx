@@ -10,7 +10,6 @@ export default function NavbarSimples() {
       <div className="navbar-right">
         <Link to="/funcionarios">Funcionário</Link>
         <Link to="/agenda">Agenda</Link>
-        <Link to="/galeria">Galeria</Link>
       </div>
     </nav>
   );
