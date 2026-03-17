@@ -5,10 +5,10 @@
   width: 100%;
   margin: 100px auto;
   padding: 20px;
-  background: #103B40;
-  border: 3px solid #6A9BA6;
+  background: #04090D;
+  border: 3px solid #BF925A;
   border-radius: 10px;
-  color: white;
+  color: #D9C7B8;
   display: flex;
   flex-direction: column;
 }
@@ -29,23 +29,23 @@
 .data-select input {
   padding: 6px 10px;
   border-radius: 6px;
-  border: 1px solid #6A9BA6;
-  background: #346C73;
-  color: white;
+  border: 2px solid #8C442A;
+  background: #D9C7B8;
+  color: #04090D;
 }
 
 .data-select button {
   padding: 6px 12px;
   border: none;
   border-radius: 6px;
-  background: #6A9BA6;
-  color: white;
+  background: #8C442A;
+  color: #D9C7B8;
   cursor: pointer;
   transition: all 0.2s;
 }
 
 .data-select button:hover {
-  background: #4B888F;
+  background: #592F16;
 }
 
 /* Seleção de barbeiro */
@@ -61,18 +61,19 @@
   padding: 8px 16px;
   border: none;
   border-radius: 6px;
-  background: #346C73;
-  color: white;
+  background: #592F16;
+  color: #D9C7B8;
   cursor: pointer;
   transition: background 0.3s;
 }
 
 .barbeiro-select button:hover {
-  background: #4B888F;
+  background: #8C442A;
 }
 
 .barbeiro-select .ativo {
-  background: #6A9BA6;
+  background: #BF925A;
+  color: #04090D;
 }
 
 /* Lista de horários com scroll */
@@ -88,17 +89,17 @@
   grid-template-columns: 80px 1fr 150px 150px auto;
   align-items: center;
   padding: 10px;
-  border-bottom: 1px solid #6A9BA6;
+  border-bottom: 1px solid #8C442A;
 }
 
 .agenda-linha.ocupado {
-  background-color: rgba(255, 255, 255, 0.1);
-  color: #ccc;
-  border-left: 4px solid #6A9BA6;
+  background-color: rgba(217, 199, 184, 0.1);
+  color: #D9C7B8;
+  border-left: 4px solid #BF925A;
 }
 
 .agenda-linha.ocupado .btn-add {
-  background-color: #444;
+  background-color: #592F16;
   cursor: not-allowed;
   pointer-events: none;
 }
@@ -111,8 +112,8 @@
 
 .btn-add {
   border: none;
-  background: #6A9BA6;
-  color: white;
+  background: #BF925A;
+  color: #04090D;
   border-radius: 4px;
   cursor: pointer;
   height: 28px;
@@ -131,7 +132,7 @@
   border-radius: 4px;
   cursor: pointer;
   font-size: 12px;
-  color: white;
+  color: #D9C7B8;
   transition: all 0.2s;
 }
 
@@ -140,15 +141,16 @@
 }
 
 .btn-grupo button:first-child {
-  background-color: #FFA500;
+  background-color: #BF925A;
+  color: #04090D;
 }
 
 .btn-grupo button:nth-child(2) {
-  background-color: #E74C3C;
+  background-color: #8C442A;
 }
 
 .btn-grupo button:nth-child(3) {
-  background-color: #3498DB;
+  background-color: #592F16;
 }
 
 /* Overlay com blur */
@@ -159,7 +161,7 @@
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(0,0,0,0.4);
+  background: rgba(4, 9, 13, 0.6);
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
   display: flex;
@@ -187,15 +189,15 @@
 /* Card de agendamento */
 
 .card-agendamento {
-  background: #103B40;
+  background: #592F16;
   padding: 20px;
-  border: 3px solid #6A9BA6;
+  border: 3px solid #BF925A;
   border-radius: 10px;
   display: flex;
   flex-direction: column;
   gap: 10px;
   width: 300px;
-  color: white;
+  color: #D9C7B8;
   transform: scale(0.8);
   opacity: 0;
   animation: cardZoomIn 0.3s forwards;
@@ -247,7 +249,9 @@
   padding:6px;
   margin-top:4px;
   border-radius:4px;
-  border:1px solid #6A9BA6;
+  border:1px solid #8C442A;
+  background: #D9C7B8;
+  color: #04090D;
 }
 
 .card-buttons {
@@ -261,13 +265,14 @@
   border:none;
   border-radius:4px;
   cursor:pointer;
-  background:#6A9BA6;
-  color:white;
+  background:#BF925A;
+  color:#04090D;
   transition: all 0.2s;
 }
 
 .card-buttons button:hover {
-  opacity: 0.9;
+  background:#8C442A;
+  color:#D9C7B8;
 }
 
 /* Scrollbar personalizada */
@@ -282,7 +287,7 @@
 }
 
 .agenda-list::-webkit-scrollbar-thumb {
-  background-color: #6A9BA6;
+  background-color: #8C442A;
   border-radius: 5px;
-  border: 2px solid #103B40;
+  border: 2px solid #04090D;
 }

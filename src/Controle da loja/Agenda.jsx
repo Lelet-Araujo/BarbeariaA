@@ -3,7 +3,7 @@ import "./Agenda.css";
 import NavbarSimples from "../2Components/NavBarLoja/NavbarLoja";
 
 export default function AgendaPage() {
-  const barbeiros = ["Carlos", "João", "Marcos"];
+  const barbeiros = ["Carlos", "João", "Artur", ];
 
   const [barbeiroSelecionado, setBarbeiroSelecionado] = useState(barbeiros[0]);
   const [horaSelecionada, setHoraSelecionada] = useState("");
@@ -12,6 +12,9 @@ export default function AgendaPage() {
   const [telefone, setTelefone] = useState("");
   const [modoReagendar, setModoReagendar] = useState(false);
   const [agendamentoAtual, setAgendamentoAtual] = useState(null);
+
+  const [novoBarbeiro, setNovoBarbeiro] = useState("");
+  const [novaData, setNovaData] = useState("");
 
   const [dataSelecionada, setDataSelecionada] = useState(
     new Date().toISOString().split("T")[0]
@@ -37,6 +40,19 @@ export default function AgendaPage() {
   ]);
 
   const horarios = gerarHorarios();
+
+  const horariosLivres = (barbeiro, data, ignorarAgendamento = null) => {
+    return horarios.filter(
+      (h) =>
+        !agendamentos.some(
+          (a) =>
+            a.barbeiro === barbeiro &&
+            a.hora === h &&
+            a.data === data &&
+            a !== ignorarAgendamento
+        )
+    );
+  };
 
   const abrirCard = (hora) => {
     const existe = agendamentos.some(
@@ -64,6 +80,9 @@ export default function AgendaPage() {
     setFechandoCard(false);
     setModoReagendar(true);
     setTelefone(agendamento.telefone);
+
+    setNovoBarbeiro(agendamento.barbeiro);
+    setNovaData(agendamento.data);
   };
 
   const fecharCard = () => {
@@ -80,6 +99,18 @@ export default function AgendaPage() {
   const adicionarCliente = (evento) => {
     evento.preventDefault();
     const form = evento.target;
+
+    const conflito = agendamentos.some(
+      (a) =>
+        a.barbeiro === barbeiroSelecionado &&
+        a.hora === horaSelecionada &&
+        a.data === dataSelecionada
+    );
+
+    if (conflito) {
+      alert("Este horário já está ocupado!");
+      return;
+    }
 
     const novoAgendamento = {
       barbeiro: barbeiroSelecionado,
@@ -99,7 +130,19 @@ export default function AgendaPage() {
     const form = evento.target;
 
     const novoHorario = form.hora.value;
-    const novaData = form.data.value;
+
+    const conflito = agendamentos.some(
+      (a) =>
+        a.barbeiro === novoBarbeiro &&
+        a.hora === novoHorario &&
+        a.data === novaData &&
+        a !== agendamentoAtual
+    );
+
+    if (conflito) {
+      alert("Este horário já está ocupado!");
+      return;
+    }
 
     const agendamentosAtualizados = agendamentos.filter(
       (a) => a !== agendamentoAtual
@@ -108,7 +151,8 @@ export default function AgendaPage() {
     agendamentosAtualizados.push({
       ...agendamentoAtual,
       hora: novoHorario,
-      data: novaData
+      data: novaData,
+      barbeiro: novoBarbeiro
     });
 
     setAgendamentos(agendamentosAtualizados);
@@ -130,18 +174,6 @@ export default function AgendaPage() {
     window.open(`https://wa.me/55${telefoneNumero}?text=${msg}`, "_blank");
   };
 
-  const horariosLivres = (barbeiro) => {
-    return horarios.filter(
-      (h) =>
-        !agendamentos.some(
-          (a) =>
-            a.barbeiro === barbeiro &&
-            a.hora === h &&
-            a.data === dataSelecionada
-        )
-    );
-  };
-
   return (
     <>
       <NavbarSimples />
@@ -150,11 +182,10 @@ export default function AgendaPage() {
 
         <h2>
           Agenda -{" "}
-          {new Date(dataSelecionada).toLocaleDateString("pt-BR")}
+          {new Date(dataSelecionada + "T00:00:00").toLocaleDateString("pt-BR")}
         </h2>
 
         <div className="data-select">
-
           <input
             type="date"
             value={dataSelecionada}
@@ -168,7 +199,6 @@ export default function AgendaPage() {
           >
             Hoje
           </button>
-
         </div>
 
         <div className="barbeiro-select">
@@ -217,21 +247,15 @@ export default function AgendaPage() {
                   </button>
                 ) : (
                   <div className="btn-grupo">
-                    <button
-                      onClick={() => abrirReagendar(agendamento)}
-                    >
+                    <button onClick={() => abrirReagendar(agendamento)}>
                       Reagendar
                     </button>
 
-                    <button
-                      onClick={() => excluirAgendamento(agendamento)}
-                    >
+                    <button onClick={() => excluirAgendamento(agendamento)}>
                       Excluir
                     </button>
 
-                    <button
-                      onClick={() => avisarCliente(agendamento)}
-                    >
+                    <button onClick={() => avisarCliente(agendamento)}>
                       Avisar
                     </button>
                   </div>
@@ -257,10 +281,25 @@ export default function AgendaPage() {
                   Data:
                   <input
                     type="date"
-                    name="data"
-                    defaultValue={agendamentoAtual.data}
+                    value={novaData}
+                    onChange={(e) => setNovaData(e.target.value)}
                     required
                   />
+                </label>
+
+                <label>
+                  Barbeiro:
+                  <select
+                    value={novoBarbeiro}
+                    onChange={(e) => setNovoBarbeiro(e.target.value)}
+                    required
+                  >
+                    {barbeiros.map((b) => (
+                      <option key={b} value={b}>
+                        {b}
+                      </option>
+                    ))}
+                  </select>
                 </label>
 
                 <label>
@@ -270,7 +309,11 @@ export default function AgendaPage() {
                       Selecione
                     </option>
 
-                    {horariosLivres(agendamentoAtual.barbeiro).map((h) => (
+                    {horariosLivres(
+                      novoBarbeiro,
+                      novaData,
+                      agendamentoAtual
+                    ).map((h) => (
                       <option key={h} value={h}>
                         {h}
                       </option>
@@ -287,9 +330,7 @@ export default function AgendaPage() {
               </>
             ) : (
               <>
-                <h3>
-                  Agendar Horário - {horaSelecionada}
-                </h3>
+                <h3>Agendar Horário - {horaSelecionada}</h3>
 
                 <label>
                   Nome:
@@ -327,9 +368,25 @@ export default function AgendaPage() {
                     <option value="">Selecione</option>
                     <option value="Corte">Corte</option>
                     <option value="Barba">Barba</option>
-                    <option value="Barba + Corte">
-                      Barba + Corte
+                    <option value="Barba + Corte">Barba + Corte</option>
+                  </select>
+                </label>
+
+                <label>
+                  Horário:
+                  <select name="hora" required defaultValue="">
+                    <option value="" disabled>
+                      Selecione
                     </option>
+
+                    {horariosLivres(
+                      barbeiroSelecionado,
+                      dataSelecionada
+                    ).map((h) => (
+                      <option key={h} value={h}>
+                        {h}
+                      </option>
+                    ))}
                   </select>
                 </label>
 

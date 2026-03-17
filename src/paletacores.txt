@@ -1,0 +1,7 @@
+/* Color Theme Swatches in Hex */
+.Ferramentas-profissionais-de-barbeiro-em-coldre-de-couro-1-hex { color: #04090D; }
+.Ferramentas-profissionais-de-barbeiro-em-coldre-de-couro-2-hex { color: #BF925A; }
+.Ferramentas-profissionais-de-barbeiro-em-coldre-de-couro-3-hex { color: #D9C7B8; }
+.Ferramentas-profissionais-de-barbeiro-em-coldre-de-couro-4-hex { color: #592F16; }
+.Ferramentas-profissionais-de-barbeiro-em-coldre-de-couro-5-hex { color: #8C442A; }
+

@@ -1,0 +1,378 @@
+/* ==============================
+   RESET + BASE
+   ============================== */
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: radial-gradient(circle at top, #04090D 0%, #04090D 100%);
+  color: #D9C7B8;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ==============================
+   NAVBAR
+   ============================== */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 30px;
+  background: rgba(4, 9, 13, 0.85);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid #BF925A;
+}
+
+.navbar-logo {
+  font-size: 20px;
+  font-weight: bold;
+  letter-spacing: 2px;
+  color: #BF925A;
+}
+
+.navbar button {
+  padding: 10px 22px;
+  border-radius: 30px;
+  border: 1px solid #BF925A;
+  background: #BF925A;
+  color: rgba(4, 9, 13, 0.85);
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.navbar button:hover {
+  background: #8C442A;
+  color: #D9C7B8;
+}
+
+/* ==============================
+   HERO
+   ============================== */
+.hero {
+  text-align: center;
+  padding: 120px 20px;
+  background:
+    linear-gradient(to bottom, rgba(4, 9, 13, 0.6), #04090D),
+    url("https://images.unsplash.com/photo-1503951914875-452162b0f3f1");
+  background-size: cover;
+  background-position: center;
+}
+
+.hero h1 {
+  font-size: 48px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  color: #BF925A;
+}
+
+.hero p {
+  margin-top: 15px;
+  color: #D9C7B8;
+  opacity: 0.8;
+  font-size: 18px;
+}
+
+.hero button {
+  margin-top: 25px;
+  padding: 14px 28px;
+  border-radius: 30px;
+  border: none;
+  background: #BF925A;
+  color: #04090D;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.hero button:hover {
+  transform: scale(1.05);
+  background: #8C442A;
+  color: #D9C7B8;
+}
+
+/* ==============================
+   SECTIONS
+   ============================== */
+section {
+  padding: 80px 20px;
+  text-align: center;
+}
+
+h2 {
+  font-size: 32px;
+  margin-bottom: 40px;
+  color: #BF925A;
+}
+
+/* ==============================
+   CENTRALIZAÇÃO DE CARROSSEL E TEXTOS
+   ============================== */
+.cuts, .gallery, .services {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.cuts-container, .gallery-container {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  justify-content: center; /* garante centralização */
+  align-items: center;     /* centraliza verticalmente */
+  padding-bottom: 10px;
+}
+
+/* ==============================
+   CARROSSEL
+   ============================== */
+.carousel {
+  display: flex;
+  align-items: center;
+  justify-content: center; /* centraliza botões + container */
+  width: 100%;
+  position: relative;
+}
+.carousel button {
+  background: transparent;
+  border: none;
+  color: #BF925A;
+  font-size: 24px;
+  padding: 10px;
+  cursor: pointer;
+  transition: 0.3s;
+  z-index: 10;
+  flex-shrink: 0; 
+}
+
+.carousel button:hover {
+   color: #8C442A;
+}
+
+.cuts-container, .gallery-container {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  justify-content: center;
+  padding-bottom: 10px;
+}
+
+.cuts-container::-webkit-scrollbar,
+.gallery-container::-webkit-scrollbar {
+  display: none;
+}
+
+/* ==============================
+   CARDS DE CORTE
+   ============================== */
+.cut-card {
+  min-width: 220px;
+  max-width: 260px;
+  height: 320px;
+  border-radius: 16px;
+  overflow: hidden;
+  position: relative;
+  background: #04090D;
+  transition: all 0.4s ease;
+  flex-shrink: 0;
+}
+
+.cut-card img {
+  width: 100%;
+  height: 60%;
+  object-fit: cover;
+  filter: brightness(0.85);
+  transition: 0.4s;
+}
+
+.cut-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(4, 9, 13, 0.9), transparent);
+}
+
+.cut-card p {
+  position: absolute;
+  bottom: 15px;
+  left: 15px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  color: #D9C7B8;
+  font-size: 16px;
+}
+
+.cut-card:hover {
+  transform: translateY(-8px) scale(1.05);
+}
+
+.cut-card:hover img {
+  filter: brightness(1);
+  transform: scale(1.1);
+}
+
+/* ==============================
+   SERVIÇOS
+   ============================== */
+.services-cards {
+  display: flex;
+  justify-content: center; /* centraliza todos os cards */
+  align-items: center;
+  gap: 25px;
+  flex-wrap: wrap; /* permite quebra em telas menores */
+}
+
+.card {
+  width: 220px;
+  height: 280px;
+  padding: 20px;
+  border-radius: 14px;
+  background: rgba(89, 47, 22, 0.2);
+  border: 1px solid rgba(191, 146, 90, 0.2);
+  transition: 0.3s;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: #D9C7B8;
+}
+
+.card img {
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+  border-radius: 12px;
+  margin-bottom: 15px;
+  transition: transform 0.3s;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  background: rgba(140, 68, 42, 0.3);
+}
+
+.card:hover img {
+  transform: scale(1.05);
+}
+
+/* ==============================
+   GALERIA
+   ============================== */
+.carousel-container img {
+  flex: 0 0 220px;
+  height: 250px;
+  border-radius: 14px;
+  object-fit: cover;
+  transition: transform 0.3s, filter 0.3s;
+  filter: brightness(0.75);
+}
+
+.carousel-container img:hover {
+  transform: scale(1.08);
+  filter: brightness(1);
+}
+
+/* ==============================
+   FOOTER
+   ============================== */
+.footer {
+  padding: 40px 20px;
+  background: #04090D;
+  border-top: 1px solid rgba(191, 146, 90, 0.2);
+}
+
+.footer-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.footer-address {
+  color: #8C442A;
+  font-size: 13px;
+}
+
+.footer-contact {
+  color: #D9C7B8;
+  opacity: 0.7;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+}
+
+.social-icons {
+  display: flex;
+  justify-content: center;
+  gap: 50px;
+  margin-top: 10px;
+  font-size: 30px;
+}
+
+.social-icons svg {
+  cursor: pointer;
+  transition: 0.3s;
+  color: #BF925A;
+}
+
+.social-icons svg:hover {
+  transform: scale(1.2);
+  color: #8C442A;
+}
+
+/* ==============================
+   ABOUT
+   ============================== */
+.about-text {
+  max-width: 700px;
+  margin: 0 auto 50px;
+  line-height: 1.8;
+  font-size: 17px;
+  color: #D9C7B8;
+  letter-spacing: 0.5px;
+}
+
+/* ==============================
+   RESPONSIVIDADE
+   ============================== */
+@media (max-width: 1200px) {
+  .hero h1 { font-size: 42px; }
+  .hero p { font-size: 16px; }
+}
+
+@media (max-width: 1024px) {
+  .cut-card, .card, .carousel-container img {
+    width: 180px;
+    height: 240px;
+  }
+
+  .card img { height: 120px; }
+  .hero { padding: 100px 15px; }
+}
+
+@media (max-width: 768px) {
+  .cut-card, .card, .carousel-container img {
+    width: 160px;
+    height: 220px;
+  }
+
+  .card img { height: 100px; }
+  .hero h1 { font-size: 36px; }
+  .hero p { font-size: 15px; }
+  section { padding: 60px 15px; }
+}
+
+@media (max-width: 480px) {
+  .cut-card, .card, .carousel-container img {
+    width: 140px;
+    height: 200px;
+  }
+
+  .card img { height: 90px; }
+  .hero h1 { font-size: 28px; }
+  .hero p { font-size: 14px; }
+  section { padding: 50px 10px; }
+  .services-cards { gap: 15px; }
+  .social-icons { gap: 30px; font-size: 26px; }
+}

@@ -13,7 +13,6 @@ body {
   display: flex;
   justify-content: center;
   perspective: 1500px;
-  /* necessário para flip 3D */
 }
 
 /********************************************************** CARD / FLIP **********************************************************/
@@ -38,9 +37,9 @@ body {
   display: flex;
   padding: 40px;
   border-radius: 10px;
-  color: white;
-  background: linear-gradient(150deg, #012326, #d1f1ff);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 4px 15px rgba(0, 0, 0, 0.3);
+  color: #D9C7B8;
+  background: linear-gradient(150deg, #04090D, #592F16,#BF925A);
+  box-shadow: 0 10px 30px rgba(4, 9, 13, 0.5), 0 4px 15px rgba(4, 9, 13, 0.3);
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
   box-sizing: border-box;
@@ -86,8 +85,8 @@ body {
   width: 350px;
   margin-bottom: 10px;
   font-size: 35px;
-  color: #ffffff;
-  text-shadow: 3px 3px 8px rgba(0, 0, 0, 0.7), 0 0 10px #a3c9d9;
+  color: #BF925A;
+  text-shadow: 3px 3px 8px rgba(4, 9, 13, 0.7), 0 0 10px #BF925A;
   text-align: center;
 }
 
@@ -97,13 +96,13 @@ body {
 }
 
 .login-left span {
-  color: #012326;
+  color: #BF925A;
   cursor: pointer;
   transition: 0.3s;
 }
 
 .login-left span:hover {
-  color: #ffffff;
+  color: #D9C7B8;
 }
 
 /********************************************************** FORMULÁRIOS **********************************************************/
@@ -122,16 +121,16 @@ body {
 .input-group input {
   width: 350px;
   padding: 15px;
-  border: 2px solid #a3c9d9;
+  border: 2px solid #BF925A;
   border-radius: 20px;
   background: transparent;
-  color: rgba(255, 255, 255, 0.85);
+  color: rgba(217, 199, 184, 0.85);
   font-size: 16px;
   box-sizing: border-box;
 }
 
 .input-group input::placeholder {
-  color: #ffffff75;
+  color: rgba(217, 199, 184, 0.5);
 }
 
 .input-with-icon {
@@ -144,10 +143,10 @@ body {
 .input-with-icon input {
   width: 350px;
   padding: 10px 42px 10px 10px;
-  border: 2px solid #a3c9d9;
+  border: 2px solid #BF925A;
   border-radius: 20px;
   background: transparent;
-  color: white;
+  color: #D9C7B8;
   font-size: 16px;
   box-sizing: border-box;
 }
@@ -182,19 +181,19 @@ body {
 }
 
 .options a {
-  color: #012326;
+  color: #BF925A;
   cursor: pointer;
   transition: 0.3s;
 }
 
 .options a:hover {
-  color: #ffffff;
+  color: #D9C7B8;
 }
 
 .options input[type="checkbox"] {
   width: 16px;
   height: 16px;
-  accent-color: #012326;
+  accent-color: #BF925A;
 }
 
 /********************************************************** BOTÕES **********************************************************/
@@ -204,17 +203,17 @@ body {
   padding: 12px;
   border-radius: 20px;
   border: none;
-  background: #103b40;
+  background: #BF925A;
   font-size: 16px;
   font-weight: bold;
-  color: #ffffff;
+  color: #04090D;
   cursor: pointer;
   transition: 0.3s;
   box-sizing: border-box;
 }
 
 .login-btn:hover {
-  background: #012326;
+  background: #8C442A;
 }
 
 /********************************************************** CADASTRO **********************************************************/
@@ -227,7 +226,6 @@ body {
   align-items: center;
 }
 
-/* Botões para escolher tipo de cadastro */
 .tipo-cadastro {
   display: flex;
   gap: 20px;
@@ -238,19 +236,17 @@ body {
   padding: 12px 30px;
   border-radius: 20px;
   border: none;
-  background: #103b40;
-  color: #fff;
+  background: #BF925A;
+  color: #04090D;
   font-size: 16px;
   cursor: pointer;
   transition: 0.3s;
 }
 
 .tipo-cadastro button:hover {
-  background: #012326;
+  background: #8C442A;
 }
 
-/* Grid de cadastro com duas colunas */
-/* Grid de cadastro com duas colunas */
 .register-grid {
   width: 100%;
   display: grid;
@@ -259,17 +255,14 @@ body {
   align-items: start;
   margin-top: 10px;
   position: relative;
-  /* para poder posicionar o botão */
 }
 
-/* Colunas de inputs */
 .register-column {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-/* Inputs menores para caber na grid */
 .register-column .input-group,
 .register-column .input-with-icon {
   width: 280px;
@@ -282,14 +275,11 @@ body {
   font-size: 15px;
 }
 
-/* Botão de cadastro centralizado abaixo das colunas */
 .register-btn {
   width: 280px;
   padding: 12px;
   margin: -20px auto 0 auto;
-  /* centraliza horizontalmente */
   grid-column: 1 / -1;
-  /* faz o botão ocupar as duas colunas */
 }
 
 /*********************************************************** ÍCONES **********************************************************/
@@ -301,12 +291,12 @@ body {
   height: 28px;
   cursor: pointer;
   z-index: 10;
-  filter: brightness(0) invert(1);
+  filter: brightness(0) invert(85%) sepia(12%) saturate(200%) hue-rotate(350deg);
   transition: 0.3s;
 }
 
 .close-icon:hover {
-  filter: brightness(1) invert(0);
+  filter: brightness(0) saturate(100%) invert(72%) sepia(34%) saturate(512%) hue-rotate(352deg) brightness(92%) contrast(90%);
 }
 
 .back-arrow {
@@ -317,20 +307,12 @@ body {
   height: 28px;
   cursor: pointer;
   z-index: 10;
-  filter: brightness(0) invert(1);
-  cursor: pointer;
+  filter: brightness(0) invert(85%) sepia(12%) saturate(200%) hue-rotate(350deg);
   transition: 0.3s;
 }
 
 .back-arrow:hover {
-  filter: brightness(0) invert(0);
-}
-
-.google-icon {
-  width: 22px;
-  height: 22px;
-  object-fit: contain;
-  filter: brightness(0) invert(1);
+    filter: brightness(0) saturate(100%) invert(72%) sepia(34%) saturate(512%) hue-rotate(352deg) brightness(92%) contrast(90%);
 }
 
 /* Ajuste inputs LOGIN para o tamanho do cadastro */
@@ -343,7 +325,5 @@ body {
 .login-card-front .input-with-icon input {
   width: 100%;
   padding: 12px 35px 12px 10px;
-  /* igual ao cadastro */
   font-size: 15px;
 }
-

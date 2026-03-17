@@ -5,58 +5,71 @@ import calendarIcon from "../../1Assets/calendar.png";
 import clockIcon from "../../1Assets/clock.png";
 import userIcon from "../../1Assets/user.png";
 import phoneIcon from "../../1Assets/phone.png";
+import arrowIcon from "../../1Assets/arrow.png";
 
 export default function CardAgendamento({ onClose }) {
+  const [isFlipped, setIsFlipped] = useState(false);
 
-  const [data, setData] = useState("");
-  const [hora, setHora] = useState("");
-  const [nome, setNome] = useState("");
-  const [telefone, setTelefone] = useState("");
-  const [barbeiro, setBarbeiro] = useState("");
+  // Estados independentes para a frente
+  const [dataFront, setDataFront] = useState("");
+  const [horaFront, setHoraFront] = useState("");
+  const [nomeFront, setNomeFront] = useState("");
+  const [telefoneFront, setTelefoneFront] = useState("");
+  const [barbeiroFront, setBarbeiroFront] = useState("");
 
-  const dataRef = useRef(null);
-  const horaRef = useRef(null);
+  // Estados independentes para o verso
+  const [dataBack, setDataBack] = useState("");
+  const [horaBack, setHoraBack] = useState("");
+  const [nomeBack, setNomeBack] = useState("");
+  const [telefoneBack, setTelefoneBack] = useState("");
+  const [barbeiroBack, setBarbeiroBack] = useState("");
 
-  const barbeiros = [
-    "Carlos",
-    "João",
-    "Marcos",
-    "Fernando"
-  ];
+  const dataRefFront = useRef(null);
+  const horaRefFront = useRef(null);
+  const dataRefBack = useRef(null);
+  const horaRefBack = useRef(null);
 
-  const confirmarAgendamento = () => {
-    const agendamento = {
-      nome,
-      telefone,
-      barbeiro,
-      data,
-      hora
-    };
+  const barbeiros = ["Carlos", "João", "Marcos", "Fernando"];
 
-    console.log("Agendamento:", agendamento);
+  const confirmarAgendamento = (lado) => {
+    const agendamento = lado === "front"
+      ? { nome: nomeFront, telefone: telefoneFront, barbeiro: barbeiroFront, data: dataFront, hora: horaFront }
+      : { nome: nomeBack, telefone: telefoneBack, barbeiro: barbeiroBack, data: dataBack, hora: horaBack };
+    console.log(`${lado === "front" ? "Agendamento" : "Reagendamento"}:`, agendamento);
   };
 
-  const reagendar = () => {
-    const busca = {
-      nome,
-      telefone
-    };
+  const renderForm = (lado) => {
+    const isBack = lado === "back";
+    const nome = isBack ? nomeBack : nomeFront;
+    const setNome = isBack ? setNomeBack : setNomeFront;
+    const telefone = isBack ? telefoneBack : telefoneFront;
+    const setTelefone = isBack ? setTelefoneBack : setTelefoneFront;
+    const barbeiro = isBack ? barbeiroBack : barbeiroFront;
+    const setBarbeiro = isBack ? setBarbeiroBack : setBarbeiroFront;
+    const data = isBack ? dataBack : dataFront;
+    const setData = isBack ? setDataBack : setDataFront;
+    const hora = isBack ? horaBack : horaFront;
+    const setHora = isBack ? setHoraBack : setHoraFront;
+    const dataRef = isBack ? dataRefBack : dataRefFront;
+    const horaRef = isBack ? horaRefBack : horaRefFront;
 
-    console.log("Buscar agendamento para reagendar:", busca);
-  };
-
-  return (
-    <div className="container">
+    return (
       <div className="agendamento-card">
-
+        {isBack && (
+          <img
+            src={arrowIcon}
+            alt="Voltar"
+            className="back-icon"
+            onClick={() => setIsFlipped(false)}
+          />
+        )}
         <img
           src={closeIcon}
           alt="Fechar"
           className="close-icon"
           onClick={onClose}
         />
-
-        <h2>Agendar Horário</h2>
+        <h2>{isBack ? "Reagendar" : "Agendar Horário"}</h2>
 
         {/* Nome */}
         <div className="input-group">
@@ -84,7 +97,6 @@ export default function CardAgendamento({ onClose }) {
               onInput={(e) => {
                 let x = e.target.value.replace(/\D/g, "");
                 if (x.length > 11) x = x.slice(0, 11);
-
                 if (x.length > 10) {
                   e.target.value = `(${x.slice(0, 2)}) ${x.slice(2, 7)} - ${x.slice(7)}`;
                 } else if (x.length > 6) {
@@ -94,7 +106,6 @@ export default function CardAgendamento({ onClose }) {
                 } else if (x.length > 0) {
                   e.target.value = `(${x}`;
                 }
-
                 setTelefone(e.target.value);
               }}
             />
@@ -112,8 +123,8 @@ export default function CardAgendamento({ onClose }) {
               onChange={(e) => setBarbeiro(e.target.value)}
             >
               <option value="">Escolha um barbeiro</option>
-              {barbeiros.map((b, index) => (
-                <option key={index} value={b}>
+              {barbeiros.map((b, i) => (
+                <option key={i} value={b}>
                   {b}
                 </option>
               ))}
@@ -135,11 +146,7 @@ export default function CardAgendamento({ onClose }) {
               src={calendarIcon}
               alt="Data"
               className="icon-right"
-              onClick={() =>
-                dataRef.current &&
-                dataRef.current.showPicker &&
-                dataRef.current.showPicker()
-              }
+              onClick={() => dataRef.current?.showPicker?.()}
             />
           </div>
         </div>
@@ -158,29 +165,31 @@ export default function CardAgendamento({ onClose }) {
               src={clockIcon}
               alt="Hora"
               className="icon-right"
-              onClick={() =>
-                horaRef.current &&
-                horaRef.current.showPicker &&
-                horaRef.current.showPicker()
-              }
+              onClick={() => horaRef.current?.showPicker?.()}
             />
           </div>
         </div>
 
-        <button
-          className="agendar-btn"
-          onClick={confirmarAgendamento}
-        >
-          Confirmar Agendamento
+        <button className="agendar-btn" onClick={() => confirmarAgendamento(lado)}>
+          {isBack ? "Confirmar Reagendamento" : "Confirmar Agendamento"}
         </button>
 
-        <button
-          className="reagendar-btn"
-          onClick={reagendar}
-        >
-          Reagendar
-        </button>
+        {!isBack && (
+          <button className="reagendar-btn" onClick={() => setIsFlipped(true)}>
+            Reagendar
+          </button>
+        )}
+      </div>
+    );
+  };
 
+  return (
+    <div className="container">
+      <div className="card-wrapper">
+        <div className={`card ${isFlipped ? "flipped" : ""}`}>
+          <div className="card-face front">{renderForm("front")}</div>
+          <div className="card-face back">{renderForm("back")}</div>
+        </div>
       </div>
     </div>
   );

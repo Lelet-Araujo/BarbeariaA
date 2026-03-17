@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
-import App from "./2Components/CardAgendamentoLoja/CardAgendaLoja";
+import App from "./webClient/HomeWC";
 import "./index.css";
 
 ReactDOM.createRoot(document.getElementById("root")).render(

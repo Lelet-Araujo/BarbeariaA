@@ -6,10 +6,10 @@
   width: 100%;
   height: 700px; /* altura fixa do card */
   padding: 5px 25px 25px 25px; /* mais espaço interno no topo */
-  background: #103B40;
-  border: 3px solid #6A9BA6;
+  background: #04090D;
+  border: 3px solid #BF925A;
   border-radius: 10px;
-  color: #fff;
+  color: #D9C7B8;
   box-shadow: 0 10px 30px rgba(0,0,0,0.3);
   margin: 95px auto 0 auto; /* ajusta distância do topo para navbar */
   display: flex;
@@ -21,12 +21,12 @@
 /*                TÍTULO DA PÁGINA             */
 /* ============================================= */
 h2 {
-  
-  margin-top: -50px;   /* garante que o título encoste no topo do container */
-  margin-bottom: 8px; /* espaço abaixo do título, ajustável */
+  margin-top: -50px;
+  margin-bottom: 8px;
   text-align: center;
   margin-bottom: 15px;
   font-size: 24px;
+  color: #D9C7B8;
 }
 
 /* ============================================= */
@@ -42,49 +42,52 @@ h2 {
 .funcionario-form input {
   padding: 10px;
   border-radius: 5px;
-  border: 1px solid #ccc;
+  border: 1px solid #8C442A;
   flex: 1 1 180px;
+  background: #D9C7B8;
+  color: #04090D;
 }
 
 .funcionario-form button {
   padding: 10px 20px;
   border: none;
-  background-color: #346C73;
-  color: white;
+  background-color: #8C442A;
+  color: #D9C7B8;
   border-radius: 5px;
   cursor: pointer;
   transition: 0.2s;
 }
 
 .funcionario-form button:hover {
-  background-color: #6A9BA6;
+  background-color: #BF925A;
+  color: #04090D;
 }
 
 /* ============================================= */
 /*              LISTA DE FUNCIONÁRIOS           */
 /* ============================================= */
 .funcionario-list {
-  flex: 1; /* ocupa o espaço restante */
-  overflow-y: auto; /* scrollbar vertical */
+  flex: 1;
+  overflow-y: auto;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   gap: 15px;
   padding-right: 8px;
-  margin-top: -5px; /* sobe a lista levemente dentro do container */
+  margin-top: -5px;
 }
 
 /* ============================================= */
 /*             CARDS DE FUNCIONÁRIOS            */
 /* ============================================= */
 .funcionario-card {
-  border: 1px solid #ccc;
+  border: 1px solid #8C442A;
   border-radius: 8px;
-  padding: 15px 10px; /* mais altura interna */
+  padding: 15px 10px;
   display: flex;
-  flex-direction: column; /* dados em cima, botões embaixo */
-  gap: 12px; /* espaço entre dados e botões */
-  background: #14535C; /* ligeira variação de cor para contraste */
+  flex-direction: column;
+  gap: 12px;
+  background: #592F16;
 }
 
 /* Linha de dados */
@@ -93,12 +96,12 @@ h2 {
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 15px;
-  line-height: 1.6; /* aumenta a altura visual dos dados */
+  line-height: 1.6;
 }
 
 .dados-funcionario span {
   position: relative;
-  padding: 0 12px; /* espaço interno para não colar a barra */
+  padding: 0 12px;
 }
 
 /* Barras separadoras */
@@ -106,7 +109,7 @@ h2 {
   content: "|";
   position: absolute;
   right: 0;
-  color: #6A9BA6;
+  color: #BF925A;
 }
 
 /* Linha de botões */
@@ -121,10 +124,12 @@ h2 {
   border: none;
   cursor: pointer;
   transition: 0.2s;
+  background: #BF925A;
+  color: #04090D;
 }
 
 .funcionario-card button:hover {
-  opacity: 0.8;
+  opacity: 0.85;
 }
 
 /* ============================================= */
@@ -140,7 +145,7 @@ h2 {
 }
 
 .funcionario-list::-webkit-scrollbar-thumb {
-  background-color: #6A9BA6;
+  background-color: #8C442A;
   border-radius: 5px;
-  border: 2px solid #103B40;
+  border: 2px solid #04090D;
 }
