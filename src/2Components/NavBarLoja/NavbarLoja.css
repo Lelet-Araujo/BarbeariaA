@@ -6,8 +6,8 @@
   align-items: center;
   justify-content: space-between;
   padding: 0 40px;
-  background-color: #346C73;
-  border-bottom: 2px solid #A3C9D9;
+  background: rgba(4, 9, 13, 0.85);
+  border-bottom: 1px solid #BF925A;
   position: fixed;
   top: 0;
   left: 0;
@@ -20,7 +20,7 @@
 .navbar-logo {
   font-size: 20px;
   font-weight: 700;
-  color: white;
+  color: #D9C7B8;
 }
 
 /* Container para itens à direita */
@@ -33,14 +33,14 @@
 .navbar-right a {
   font-size: 20px;
   font-weight: 500;
-  color: white;
+  color: #D9C7B8;
   text-decoration: none;
   transition: color 0.3s, transform 0.2s;
 }
 
 /* Hover elegante */
 .navbar-right a:hover {
-  color: #012326; 
+  color: #BF925A; 
   cursor: pointer;
 }
 

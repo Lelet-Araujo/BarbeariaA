@@ -1,7 +1,7 @@
 // FuncionarioPage.jsx
 import React, { useState } from "react";
 import "./Funcionarios.css";
-import NavbarSimples from "../ComponentsCL/NavbarCLGeral/NavbarCLGeral"; // import da navbar
+import NavbarSimples from "../2Components/NavBarLoja/NavbarLoja";
 
 export default function FuncionarioPage() {
     const [funcionarios, setFuncionarios] = useState([
@@ -11,6 +11,8 @@ export default function FuncionarioPage() {
 
     const [novoFuncionario, setNovoFuncionario] = useState({ nome: "", funcao: "", telefone: "", email: "", ativo: true });
     const [editId, setEditId] = useState(null);
+
+    const [funcToDelete, setFuncToDelete] = useState(null); // Para o modal de confirmação
 
     const handleSalvar = () => {
         if (editId) {
@@ -27,10 +29,15 @@ export default function FuncionarioPage() {
         setEditId(func.id);
     };
 
-    const handleExcluir = (id) => {
-        if (window.confirm("Deseja realmente excluir este funcionário?")) {
-            setFuncionarios(funcionarios.filter(f => f.id !== id));
+    const handleExcluirConfirmado = () => {
+        if (funcToDelete !== null) {
+            setFuncionarios(funcionarios.filter(f => f.id !== funcToDelete));
+            setFuncToDelete(null);
         }
+    };
+
+    const handleCancelarExclusao = () => {
+        setFuncToDelete(null);
     };
 
     const handleToggleAtivo = (id) => {
@@ -39,7 +46,6 @@ export default function FuncionarioPage() {
 
     return (
         <>
-            {/* Navbar adicionada */}
             <NavbarSimples />
 
             <div className="funcionario-page" style={{ paddingTop: "80px" }}>
@@ -97,7 +103,7 @@ export default function FuncionarioPage() {
 
                             <div className="acoes-funcionario">
                                 <button onClick={() => handleEditar(func)}>Editar</button>
-                                <button onClick={() => handleExcluir(func.id)}>Excluir</button>
+                                <button onClick={() => setFuncToDelete(func.id)}>Excluir</button>
                                 <button onClick={() => handleToggleAtivo(func.id)}>
                                     {func.ativo ? "Inativo" : "Ativo"}
                                 </button>
@@ -106,6 +112,17 @@ export default function FuncionarioPage() {
                         </div>
                     ))}
                 </div>
+
+                {/* Modal simples de confirmação */}
+                {funcToDelete !== null && (
+                    <div className="modal-confirm">
+                        <div className="modal-content">
+                            <p>Deseja realmente excluir este funcionário?</p>
+                            <button onClick={handleExcluirConfirmado}>Sim</button>
+                            <button onClick={handleCancelarExclusao}>Não</button>
+                        </div>
+                    </div>
+                )}
             </div>
         </>
     );

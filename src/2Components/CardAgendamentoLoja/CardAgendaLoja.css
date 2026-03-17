@@ -15,7 +15,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-
+overflow: hidden;
   z-index: 9999;
 }
 
@@ -23,19 +23,52 @@ body {
   width: 400px;
   padding: 30px 25px;
   border-radius: 12px;
-  background: linear-gradient(150deg, #012326, #d1f1ff);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 4px 15px rgba(0, 0, 0, 0.3);
-  color: white;
+  background: linear-gradient(150deg, #04090D, #D9C7B8);
+  box-shadow: 0 10px 30px rgba(4, 9, 13, 0.5), 0 4px 15px rgba(4, 9, 13, 0.3);
+  color: #D9C7B8;
   position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
+  backface-visibility: hidden;
+  overflow: hidden;
 }
 
 .agendamento-card h2 {
   margin-bottom: 20px;
   font-size: 28px;
   text-align: center;
+  color: #BF925A;
+}
+
+.card-wrapper {
+  perspective: 1000px;
+}
+
+.card {
+  width: 400px;
+   min-height: 600px;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.6s;
+}
+
+.card.flipped {
+  transform: rotateY(180deg);
+}
+
+.card-face {
+  position: absolute;
+  width: 100%;
+  backface-visibility: hidden;
+}
+
+.card-face.back {
+  transform: rotateY(180deg);
+}
+
+.agendamento-card {
+  backface-visibility: hidden;
 }
 
 .input-group {
@@ -48,6 +81,7 @@ body {
 .input-group label {
   margin-bottom: 6px;
   font-size: 14px;
+  color: #BF925A;
 }
 
 .input-with-icon {
@@ -59,15 +93,15 @@ body {
   width: 100%;
   padding: 10px 40px 10px 10px;
   border-radius: 20px;
-  border: 2px solid #a3c9d9;
+  border: 2px solid #BF925A;
   background: transparent;
-  color: white;
+  color: #D9C7B8;
   font-size: 15px;
   box-sizing: border-box;
 }
 
 .input-with-icon input::placeholder {
-  color: #ffffff75;
+  color: rgba(217, 199, 184, 0.5);
 }
 
 .icon-right {
@@ -89,82 +123,86 @@ body {
   margin-top: 10px;
   border-radius: 20px;
   border: none;
-  background-color: #103b40;
+  background-color: #BF925A;
   font-weight: bold;
-  color: white;
+  color: #04090D;
   cursor: pointer;
   transition: 0.3s;
 }
 
 .agendar-btn:hover {
-  background-color: #012326;
+  background-color: #8C442A;
 }
 
-.close-icon {
-  position: absolute;
-  top: 12px;
-  right: 12px;
-  width: 28px;
-  height: 28px;
+.reagendar-btn {
+
+  width: 100%;
+  padding: 12px;
+  margin-top: 10px;
+
+  border-radius: 20px;
+  border: none;
+
+  background-color: #BF925A;
+
+  font-weight: bold;
+  color: #04090D;
+
   cursor: pointer;
-  filter: brightness(0) invert(1);
   transition: 0.3s;
 }
 
-.close-icon:hover {
-  filter: brightness(1.2) invert(1);
+.reagendar-btn:hover {
+  background-color: #8C442A;
 }
 
 .input-with-icon select {
   width: 100%;
   padding: 10px 40px 10px 10px;
   border-radius: 20px;
-  border: 2px solid #a3c9d9;
+  border: 2px solid #BF925A;
   background: transparent;
-  color: white;
+  color: #D9C7B8;
   font-size: 15px;
   box-sizing: border-box;
   appearance: none;
 }
 
 .input-with-icon select option {
-  color: black;
+  color: #04090D;
 }
 
 .select-barbeiro {
   width: 100%;
   padding: 10px 40px 10px 10px;
   border-radius: 20px;
-  border: 2px solid #a3c9d9;
+  border: 2px solid #BF925A;
   background: transparent;
-  color: white;
+  color: #D9C7B8;
   font-size: 15px;
   box-sizing: border-box;
   appearance: none;
   cursor: pointer;
 
   /* seta */
-  background-image: url("data:image/svg+xml;utf8,<svg fill='white' height='20' viewBox='0 0 24 24' width='20' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
+  background-image: url("data:image/svg+xml;utf8,<svg fill='%23D9C7B8' height='20' viewBox='0 0 24 24' width='20' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
   background-repeat: no-repeat;
   background-position: right 12px center;
 }
 
 .select-barbeiro option {
-  color: black;
+  color: #04090D;
 }
-
-
-
 
 /* Para inputs de data e hora */
 input[type="date"],
 input[type="time"] {
-  -webkit-appearance: none; /* Chrome, Safari */
-  -moz-appearance: textfield; /* Firefox */
-  appearance: none; /* padrão */
-  background: transparent; /* mantém o fundo transparente do seu card */
-  color: white; /* mantém o texto visível */
-  border: 2px solid #a3c9d9;
+  -webkit-appearance: none;
+  -moz-appearance: textfield;
+  appearance: none;
+  background: transparent;
+  color: #D9C7B8;
+  border: 2px solid #BF925A;
   border-radius: 20px;
   padding: 10px 40px 10px 10px;
   font-size: 15px;
@@ -185,4 +223,36 @@ input[type="time"]::-webkit-inner-spin-button,
 input[type="time"]::-webkit-calendar-picker-indicator {
   display: none;
   -webkit-appearance: none;
+}
+
+/* Icone voltar */
+.back-icon {
+  position: absolute;
+  top: 18px;
+  left: 18px;
+  width: 28px;
+  height: 28px;
+  cursor: pointer;
+  filter: brightness(0) invert(1);
+  transition: 0.3s;
+}
+
+.back-icon:hover {
+  filter: brightness(1) invert(0);
+}
+
+/* Garante que o close fique sempre na direita */
+.close-icon {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  width: 28px;
+  height: 28px;
+  cursor: pointer;
+  filter: brightness(0) invert(1);
+  transition: 0.3s;
+}
+
+.close-icon:hover {
+  filter: brightness(1) invert(0);
 }

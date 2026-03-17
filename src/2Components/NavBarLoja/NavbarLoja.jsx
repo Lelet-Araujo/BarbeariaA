@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import "./navbarCLGeral.css";
+import "./NavbarLoja.css";
 
 export default function NavbarSimples() {
   return (
@@ -10,7 +10,6 @@ export default function NavbarSimples() {
       <div className="navbar-right">
         <Link to="/funcionarios">Funcionário</Link>
         <Link to="/agenda">Agenda</Link>
-        <Link to="/galeria">Galeria</Link>
       </div>
     </nav>
   );
