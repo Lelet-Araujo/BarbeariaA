@@ -13,13 +13,19 @@ body {
    NAVBAR
    ============================== */
 .navbar {
+  position: fixed;          /* fixa no topo da página */
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 999;             /* fica sempre acima de outros elementos */
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 20px 30px;
-  background: rgba(4, 9, 13, 0.85);
+  background: rgba(4, 9, 13, 0.85); /* mantém transparência elegante */
   backdrop-filter: blur(12px);
   border-bottom: 1px solid #BF925A;
+  transition: all 0.3s ease;
 }
 
 .navbar-logo {
@@ -31,6 +37,7 @@ body {
 
 .navbar button {
   padding: 10px 22px;
+  margin-right: 4%;
   border-radius: 30px;
   border: 1px solid #BF925A;
   background: #BF925A;
@@ -49,7 +56,8 @@ body {
    ============================== */
 .hero {
   text-align: center;
-  padding: 120px 20px;
+  padding: 195px 10px;
+  padding-top: 300px;
   background:
     linear-gradient(to bottom, rgba(4, 9, 13, 0.6), #04090D),
     url("https://images.unsplash.com/photo-1503951914875-452162b0f3f1");
@@ -225,7 +233,7 @@ h2 {
 
 .card {
   width: 220px;
-  height: 280px;
+  height: 180px;
   padding: 20px;
   border-radius: 14px;
   background: rgba(89, 47, 22, 0.2);
