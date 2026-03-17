@@ -100,6 +100,28 @@ body {
   background-color: #012326;
 }
 
+.reagendar-btn {
+
+  width: 100%;
+  padding: 12px;
+  margin-top: 10px;
+
+  border-radius: 20px;
+  border: none;
+
+  background-color: #103b40;
+
+  font-weight: bold;
+  color: white;
+
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.reagendar-btn:hover {
+  background-color: #012326;
+}
+
 .close-icon {
   position: absolute;
   top: 12px;
@@ -186,3 +208,4 @@ input[type="time"]::-webkit-calendar-picker-indicator {
   display: none;
   -webkit-appearance: none;
 }
+

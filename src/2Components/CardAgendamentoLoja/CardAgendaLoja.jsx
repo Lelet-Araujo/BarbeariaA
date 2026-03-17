@@ -36,6 +36,15 @@ export default function CardAgendamento({ onClose }) {
     console.log("Agendamento:", agendamento);
   };
 
+  const reagendar = () => {
+    const busca = {
+      nome,
+      telefone
+    };
+
+    console.log("Buscar agendamento para reagendar:", busca);
+  };
+
   return (
     <div className="container">
       <div className="agendamento-card">
@@ -163,6 +172,13 @@ export default function CardAgendamento({ onClose }) {
           onClick={confirmarAgendamento}
         >
           Confirmar Agendamento
+        </button>
+
+        <button
+          className="reagendar-btn"
+          onClick={reagendar}
+        >
+          Reagendar
         </button>
 
       </div>
