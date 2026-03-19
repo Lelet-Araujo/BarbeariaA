@@ -1,0 +1,246 @@
+body {
+  background: #0b0f14;
+  color: #e6d3b3;
+  font-family: "Segoe UI", sans-serif;
+}
+
+/* NAVBAR */
+.navbar {
+  height: 60px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 40px;
+  background: rgba(4, 9, 13, 0.85);
+  border-bottom: 1px solid #BF925A;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 500;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.45);
+  backdrop-filter: blur(6px);
+}
+
+.admin-container {
+  padding: 100px 60px 40px;
+}
+
+/* FILTROS */
+.filtros {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 25px;
+  align-items: center;
+}
+
+.filtros input,
+.filtros select {
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #BF925A;
+  background: #04090D;
+  color: #D9C7B8;
+}
+
+/* BOTÃO PRINCIPAL */
+.btn-nova {
+  background: #BF925A;
+  color: #000;
+  border: none;
+  padding: 10px 10px;
+  cursor: pointer;
+  border-radius: 6px;
+  font-weight: bold;
+  transition: 0.2s;
+}
+
+.btn-nova:hover {
+  background: #a67c45;
+  transform: translateY(-1px);
+}
+
+/* LISTA */
+.loja-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.loja-card {
+  background: #04090D;
+  border: 2px solid #BF925A;
+  border-radius: 10px;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  transition: 0.2s;
+}
+
+.loja-card:hover {
+  transform: scale(1.01);
+}
+
+/* DADOS */
+.dados-loja {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  line-height: 1.4;
+}
+
+.nome-loja {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+/* AÇÕES */
+.acoes-loja {
+  display: flex;
+  gap: 10px;
+}
+
+.acoes-loja button {
+  padding: 10px 14px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  color: #fff;
+  transition: 0.2s;
+}
+
+.btn-editar {
+  background: #BF925A;
+  color: #000;
+}
+
+.btn-editar:hover {
+  background: #a67c45;
+}
+
+.btn-ver {
+  background: #2a3645;
+}
+
+.btn-ver:hover {
+  background: #3a4758;
+}
+
+.danger {
+  background: #a12b2b;
+}
+
+.danger:hover {
+  background: #c03939;
+}
+
+/* BADGE */
+.badge {
+  margin-left: 8px;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+}
+
+.badge.ativa { background: #1f8b4c; }
+.badge.inativa { background: #555; }
+.badge.suspensa { background: #a12b2b; }
+
+/* =========================
+   MODAL PADRÃO (EDIÇÃO)
+   ========================= */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,0.3);
+  backdrop-filter: blur(6px);
+  z-index: 9999;
+}
+
+.modal {
+  background: #04090D;
+  border: 2px solid #BF925A;
+  padding: 20px;
+  width: 400px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.7);
+}
+
+.modal input,
+.modal select {
+  padding: 10px;
+  border-radius: 6px;
+  border: none;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.modal-actions button {
+  padding: 10px 18px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.2s;
+}
+
+/* Cancelar */
+.modal-actions button:first-child {
+  background: transparent;
+  color: #D9C7B8;
+  border: 1px solid #555;
+}
+
+.modal-actions button:first-child:hover {
+  background: #1c2530;
+}
+
+/* Salvar */
+.modal-actions button:last-child {
+  background: #BF925A;
+  color: #000;
+}
+
+.modal-actions button:last-child:hover {
+  background: #a67c45;
+}
+
+/* =========================
+   MODAL CADASTRO (MAIS FORTE)
+   ========================= */
+.cadastro-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.55); /* mais destaque */
+  backdrop-filter: blur(8px);
+  z-index: 10000;
+}
+
+/* garante centralização correta do card */
+.cadastro-overlay .container {
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
