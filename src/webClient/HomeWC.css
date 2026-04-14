@@ -1,98 +1,132 @@
 /* ==============================
    RESET + BASE
    ============================== */
-body {
+.home-wc,
+.home-wc *,
+.home-wc *::before,
+.home-wc *::after {
+  box-sizing: border-box;
+}
+
+.home-wc {
   margin: 0;
-  font-family: 'Segoe UI', sans-serif;
-  background: radial-gradient(circle at top, #04090D 0%, #04090D 100%);
+  font-family: "Segoe UI", sans-serif;
+  background: #04090D;
   color: #D9C7B8;
   -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+}
+
+/* ==============================
+   FADE-IN (seções)
+   ============================== */
+.home-wc .fade-in {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.home-wc .fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 /* ==============================
    NAVBAR
    ============================== */
-.navbar {
-  position: fixed;          /* fixa no topo da página */
+.home-wc .navbar {
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  z-index: 999;             /* fica sempre acima de outros elementos */
+  z-index: 999;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px 30px;
-  background: rgba(4, 9, 13, 0.85); /* mantém transparência elegante */
+  padding: 16px 30px;
+  background: rgb(4, 9, 13);
   backdrop-filter: blur(12px);
-  border-bottom: 1px solid #BF925A;
+  border-bottom: 1px solid rgba(191, 146, 90, 0.4);
   transition: all 0.3s ease;
 }
 
-.navbar-logo {
+.home-wc .navbar-logo {
   font-size: 20px;
   font-weight: bold;
   letter-spacing: 2px;
   color: #BF925A;
 }
 
-.navbar button {
-  padding: 10px 22px;
-  margin-right: 4%;
+.home-wc .navbar button {
+  padding: 9px 24px;
   border-radius: 30px;
   border: 1px solid #BF925A;
   background: #BF925A;
-  color: rgba(4, 9, 13, 0.85);
+  color: #04090D;
+  font-weight: bold;
   cursor: pointer;
-  transition: 0.3s;
+  transition: background 0.3s, color 0.3s;
 }
 
-.navbar button:hover {
+.home-wc .navbar button:hover {
   background: #8C442A;
   color: #D9C7B8;
+  border-color: #8C442A;
+}
+
+.home-wc .nav-actions {
+  display: flex;
+  gap: 15px;
 }
 
 /* ==============================
    HERO
    ============================== */
-.hero {
+.home-wc .hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   text-align: center;
-  padding: 195px 10px;
-  padding-top: 300px;
+  padding: 0 20px;
   background:
-    linear-gradient(to bottom, rgba(4, 9, 13, 0.6), #04090D),
-    url("https://images.unsplash.com/photo-1503951914875-452162b0f3f1");
-  background-size: cover;
-  background-position: center;
+    linear-gradient(to bottom, rgba(4, 9, 13, 0.55), #04090D),
+    url("https://images.unsplash.com/photo-1503951914875-452162b0f3f1") center / cover no-repeat;
 }
 
-.hero h1 {
-  font-size: 48px;
-  font-weight: 600;
+.home-wc .hero-content {
+  max-width: 700px;
+}
+
+.home-wc .hero h1 {
+  font-size: 52px;
+  font-weight: 700;
   letter-spacing: 1px;
   color: #BF925A;
+  margin-bottom: 16px;
 }
 
-.hero p {
-  margin-top: 15px;
+.home-wc .hero p {
   color: #D9C7B8;
-  opacity: 0.8;
+  opacity: 0.85;
   font-size: 18px;
+  margin-bottom: 28px;
 }
 
-.hero button {
-  margin-top: 25px;
-  padding: 14px 28px;
+.home-wc .hero button {
+  padding: 14px 32px;
   border-radius: 30px;
   border: none;
   background: #BF925A;
   color: #04090D;
+  font-size: 16px;
   font-weight: bold;
   cursor: pointer;
-  transition: 0.3s;
+  transition: transform 0.3s, background 0.3s, color 0.3s;
 }
 
-.hero button:hover {
-  transform: scale(1.05);
+.home-wc .hero button:hover {
+  transform: scale(1.06);
   background: #8C442A;
   color: #D9C7B8;
 }
@@ -100,287 +134,256 @@ body {
 /* ==============================
    SECTIONS
    ============================== */
-section {
+.home-wc section {
   padding: 80px 20px;
   text-align: center;
 }
 
-h2 {
+.home-wc h2 {
   font-size: 32px;
   margin-bottom: 40px;
   color: #BF925A;
+  letter-spacing: 1px;
 }
 
 /* ==============================
-   CENTRALIZAÇÃO DE CARROSSEL E TEXTOS
+   CENTRALIZAÇÃO
    ============================== */
-.cuts, .gallery, .services {
+.home-wc .cuts,
+.home-wc .gallery,
+.home-wc .services {
   display: flex;
   flex-direction: column;
   align-items: center;
-  text-align: center;
-}
-
-.cuts-container, .gallery-container {
-  display: flex;
-  gap: 20px;
-  overflow-x: auto;
-  scroll-behavior: smooth;
-  justify-content: center; /* garante centralização */
-  align-items: center;     /* centraliza verticalmente */
-  padding-bottom: 10px;
 }
 
 /* ==============================
    CARROSSEL
    ============================== */
-.carousel {
+.home-wc .carousel {
   display: flex;
   align-items: center;
-  justify-content: center; /* centraliza botões + container */
   width: 100%;
-  position: relative;
+  max-width: 1100px;
+  gap: 8px;
 }
-.carousel button {
+
+.home-wc .carousel-btn {
   background: transparent;
   border: none;
   color: #BF925A;
-  font-size: 24px;
-  padding: 10px;
+  font-size: 22px;
+  padding: 10px 14px;
   cursor: pointer;
-  transition: 0.3s;
-  z-index: 10;
-  flex-shrink: 0; 
+  transition: color 0.3s, transform 0.2s;
+  flex-shrink: 0;
 }
 
-.carousel button:hover {
-   color: #8C442A;
+.home-wc .carousel-btn:hover {
+  color: #8C442A;
+  transform: scale(1.2);
 }
 
-.cuts-container, .gallery-container {
+.home-wc .carousel-container {
   display: flex;
   gap: 20px;
   overflow-x: auto;
   scroll-behavior: smooth;
-  justify-content: center;
-  padding-bottom: 10px;
+  padding: 10px 4px 16px;
+  scrollbar-width: none;
 }
 
-.cuts-container::-webkit-scrollbar,
-.gallery-container::-webkit-scrollbar {
+.home-wc .carousel-container::-webkit-scrollbar {
   display: none;
 }
 
 /* ==============================
    CARDS DE CORTE
    ============================== */
-.cut-card {
-  min-width: 220px;
-  max-width: 260px;
-  height: 320px;
+.home-wc .cut-card {
+  min-width: 230px;
+  max-width: 230px;
+  height: 330px;
   border-radius: 16px;
   overflow: hidden;
   position: relative;
   background: #04090D;
-  transition: all 0.4s ease;
   flex-shrink: 0;
+  transition: transform 0.4s ease;
+  cursor: pointer;
 }
 
-.cut-card img {
+.home-wc .cut-card img {
   width: 100%;
-  height: 60%;
+  height: 100%;
   object-fit: cover;
-  filter: brightness(0.85);
-  transition: 0.4s;
+  filter: brightness(0.8);
+  transition: filter 0.4s, transform 0.4s;
+  display: block;
 }
 
-.cut-card::before {
+.home-wc .cut-card::before {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(4, 9, 13, 0.9), transparent);
+  background: linear-gradient(to top, rgba(4, 9, 13, 0.85), transparent 55%);
+  z-index: 1;
 }
 
-.cut-card p {
-  position: absolute;
-  bottom: 15px;
-  left: 15px;
-  font-weight: bold;
-  letter-spacing: 1px;
-  color: #D9C7B8;
-  font-size: 16px;
+.home-wc .cut-card:hover {
+  transform: translateY(-8px) scale(1.03);
 }
 
-.cut-card:hover {
-  transform: translateY(-8px) scale(1.05);
-}
-
-.cut-card:hover img {
+.home-wc .cut-card:hover img {
   filter: brightness(1);
-  transform: scale(1.1);
-}
-
-/* ==============================
-   SERVIÇOS
-   ============================== */
-.services-cards {
-  display: flex;
-  justify-content: center; /* centraliza todos os cards */
-  align-items: center;
-  gap: 25px;
-  flex-wrap: wrap; /* permite quebra em telas menores */
-}
-
-.card {
-  width: 220px;
-  height: 180px;
-  padding: 20px;
-  border-radius: 14px;
-  background: rgba(89, 47, 22, 0.2);
-  border: 1px solid rgba(191, 146, 90, 0.2);
-  transition: 0.3s;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  color: #D9C7B8;
-}
-
-.card img {
-  width: 100%;
-  height: 140px;
-  object-fit: cover;
-  border-radius: 12px;
-  margin-bottom: 15px;
-  transition: transform 0.3s;
-}
-
-.card:hover {
-  transform: translateY(-5px);
-  background: rgba(140, 68, 42, 0.3);
-}
-
-.card:hover img {
-  transform: scale(1.05);
+  transform: scale(1.08);
 }
 
 /* ==============================
    GALERIA
    ============================== */
-.carousel-container img {
+.home-wc .gallery-container img {
   flex: 0 0 220px;
-  height: 250px;
+  height: 260px;
   border-radius: 14px;
   object-fit: cover;
   transition: transform 0.3s, filter 0.3s;
   filter: brightness(0.75);
 }
 
-.carousel-container img:hover {
-  transform: scale(1.08);
+.home-wc .gallery-container img:hover {
+  transform: scale(1.07);
   filter: brightness(1);
+}
+
+/* ==============================
+   SERVIÇOS
+   ============================== */
+.home-wc .services-cards {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 25px;
+  flex-wrap: wrap;
+}
+
+.home-wc .service-card {
+  width: 220px;
+  height: 180px;
+  padding: 20px;
+  border-radius: 14px;
+  background: rgba(89, 47, 22, 0.2);
+  border: 1px solid rgba(191, 146, 90, 0.25);
+  transition: transform 0.3s, background 0.3s;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: #D9C7B8;
+  gap: 12px;
+}
+
+.home-wc .service-card:hover {
+  transform: translateY(-6px);
+  background: rgba(140, 68, 42, 0.3);
+  border-color: rgba(191, 146, 90, 0.5);
+}
+
+/* ==============================
+   ABOUT
+   ============================== */
+.home-wc .about-text {
+  max-width: 700px;
+  margin: 0 auto 50px;
+  line-height: 1.9;
+  font-size: 17px;
+  color: #D9C7B8;
+  letter-spacing: 0.4px;
+  opacity: 0.9;
 }
 
 /* ==============================
    FOOTER
    ============================== */
-.footer {
-  padding: 40px 20px;
-  background: #04090D;
+.home-wc .footer {
+  padding: 28px 20px 22px;
+  background: rgba(7, 16, 23, 0.72);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
   border-top: 1px solid rgba(191, 146, 90, 0.2);
 }
 
-.footer-content {
+.home-wc .footer-content {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 8px;
 }
 
-.footer-address {
-  color: #8C442A;
-  font-size: 13px;
-}
-
-.footer-contact {
-  color: #D9C7B8;
-  opacity: 0.7;
+.home-wc .footer-content p {
+  margin: 0;
+  line-height: 1.35;
+  opacity: 0.92;
   font-size: 14px;
-  letter-spacing: 0.5px;
 }
 
-.social-icons {
+.home-wc .social-icons {
   display: flex;
   justify-content: center;
-  gap: 50px;
-  margin-top: 10px;
-  font-size: 30px;
+  gap: 40px;
+  margin-top: 6px;
+  font-size: 28px;
 }
 
-.social-icons svg {
-  cursor: pointer;
-  transition: 0.3s;
+.home-wc .social-icons a {
+  display: inline-flex;
   color: #BF925A;
+  text-decoration: none;
 }
 
-.social-icons svg:hover {
-  transform: scale(1.2);
+.home-wc .social-icons svg {
+  cursor: pointer;
+  transition: transform 0.3s, color 0.3s;
+  color: inherit;
+}
+
+.home-wc .social-icons a:hover svg {
+  transform: scale(1.25);
   color: #8C442A;
 }
 
-/* ==============================
-   ABOUT
-   ============================== */
-.about-text {
-  max-width: 700px;
-  margin: 0 auto 50px;
-  line-height: 1.8;
-  font-size: 17px;
-  color: #D9C7B8;
-  letter-spacing: 0.5px;
+.home-wc button:focus-visible,
+.home-wc a:focus-visible {
+  outline: 2px solid #BF925A;
+  outline-offset: 2px;
 }
 
 /* ==============================
    RESPONSIVIDADE
    ============================== */
-@media (max-width: 1200px) {
-  .hero h1 { font-size: 42px; }
-  .hero p { font-size: 16px; }
-}
-
 @media (max-width: 1024px) {
-  .cut-card, .card, .carousel-container img {
-    width: 180px;
-    height: 240px;
-  }
-
-  .card img { height: 120px; }
-  .hero { padding: 100px 15px; }
+  .home-wc .hero h1 { font-size: 42px; }
 }
 
 @media (max-width: 768px) {
-  .cut-card, .card, .carousel-container img {
-    width: 160px;
-    height: 220px;
-  }
-
-  .card img { height: 100px; }
-  .hero h1 { font-size: 36px; }
-  .hero p { font-size: 15px; }
-  section { padding: 60px 15px; }
+  .home-wc .navbar { padding: 14px 20px; }
+  .home-wc .hero h1 { font-size: 34px; }
+  .home-wc .hero p { font-size: 16px; }
+  .home-wc section { padding: 60px 15px; }
+  .home-wc .cut-card { min-width: 190px; max-width: 190px; height: 280px; }
+  .home-wc .gallery-container img { flex: 0 0 180px; height: 220px; }
 }
 
 @media (max-width: 480px) {
-  .cut-card, .card, .carousel-container img {
-    width: 140px;
-    height: 200px;
-  }
-
-  .card img { height: 90px; }
-  .hero h1 { font-size: 28px; }
-  .hero p { font-size: 14px; }
-  section { padding: 50px 10px; }
-  .services-cards { gap: 15px; }
-  .social-icons { gap: 30px; font-size: 26px; }
+  .home-wc .hero h1 { font-size: 26px; }
+  .home-wc .hero p { font-size: 14px; }
+  .home-wc section { padding: 50px 10px; }
+  .home-wc .cut-card { min-width: 160px; max-width: 160px; height: 240px; }
+  .home-wc .gallery-container img { flex: 0 0 160px; height: 190px; }
+  .home-wc .services-cards { gap: 14px; }
+  .home-wc .social-icons { gap: 30px; font-size: 24px; }
+  .home-wc .service-card { width: 150px; height: 160px; }
+  .home-wc .footer { padding: 24px 16px 18px; }
+  .home-wc .footer-content p { font-size: 13px; }
 }

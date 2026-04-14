@@ -2,8 +2,15 @@ import React, { useState } from "react";
 import "./Agenda.css";
 import NavbarSimples from "../2Components/NavBarLoja/NavbarLoja";
 
+const getDataLocalISO = (date = new Date()) => {
+  const ano = date.getFullYear();
+  const mes = String(date.getMonth() + 1).padStart(2, "0");
+  const dia = String(date.getDate()).padStart(2, "0");
+  return `${ano}-${mes}-${dia}`;
+};
+
 export default function AgendaPage() {
-  const barbeiros = ["Carlos", "João", "Artur", ];
+  const barbeiros = ["Carlos", "João", "Artur"];
 
   const [barbeiroSelecionado, setBarbeiroSelecionado] = useState(barbeiros[0]);
   const [horaSelecionada, setHoraSelecionada] = useState("");
@@ -12,31 +19,31 @@ export default function AgendaPage() {
   const [telefone, setTelefone] = useState("");
   const [modoReagendar, setModoReagendar] = useState(false);
   const [agendamentoAtual, setAgendamentoAtual] = useState(null);
-
   const [novoBarbeiro, setNovoBarbeiro] = useState("");
   const [novaData, setNovaData] = useState("");
+  const [novoHorario, setNovoHorario] = useState("");
+  const [nomeForm, setNomeForm] = useState("");
+  const [servicoForm, setServicoForm] = useState("");
 
-  const [dataSelecionada, setDataSelecionada] = useState(
-    new Date().toISOString().split("T")[0]
-  );
+  const [dataSelecionada, setDataSelecionada] = useState(getDataLocalISO());
 
   const [agendamentos, setAgendamentos] = useState([
     {
       barbeiro: "Carlos",
-      data: new Date().toISOString().split("T")[0],
+      data: getDataLocalISO(),
       hora: "09:00",
       nome: "João Silva",
       servico: "Corte",
-      telefone: "(11)9999-1111"
+      telefone: "(11) 9999-1111",
     },
     {
       barbeiro: "Carlos",
-      data: new Date().toISOString().split("T")[0],
+      data: getDataLocalISO(),
       hora: "10:00",
       nome: "Marcos Pereira",
       servico: "Barba + Corte",
-      telefone: "(11)9888-2222"
-    }
+      telefone: "(11) 9888-2222",
+    },
   ]);
 
   const horarios = gerarHorarios();
@@ -61,17 +68,17 @@ export default function AgendaPage() {
         a.hora === hora &&
         a.data === dataSelecionada
     );
-
     if (existe) {
       alert("Este horário já está ocupado!");
       return;
     }
-
     setHoraSelecionada(hora);
     setCardAberto(true);
     setFechandoCard(false);
     setModoReagendar(false);
     setTelefone("");
+    setNomeForm("");
+    setServicoForm("");
   };
 
   const abrirReagendar = (agendamento) => {
@@ -80,9 +87,9 @@ export default function AgendaPage() {
     setFechandoCard(false);
     setModoReagendar(true);
     setTelefone(agendamento.telefone);
-
     setNovoBarbeiro(agendamento.barbeiro);
     setNovaData(agendamento.data);
+    setNovoHorario("");
   };
 
   const fecharCard = () => {
@@ -93,12 +100,23 @@ export default function AgendaPage() {
       setAgendamentoAtual(null);
       setTelefone("");
       setHoraSelecionada("");
+      setNomeForm("");
+      setServicoForm("");
+      setNovoHorario("");
     }, 300);
   };
 
-  const adicionarCliente = (evento) => {
-    evento.preventDefault();
-    const form = evento.target;
+  const adicionarCliente = () => {
+    if (!nomeForm.trim() || !telefone.trim() || !servicoForm) {
+      alert("Preencha todos os campos!");
+      return;
+    }
+
+    const telefoneLimpo = telefone.replace(/\D/g, "");
+    if (telefoneLimpo.length < 10 || telefoneLimpo.length > 11) {
+      alert("Telefone inválido!");
+      return;
+    }
 
     const conflito = agendamentos.some(
       (a) =>
@@ -106,31 +124,29 @@ export default function AgendaPage() {
         a.hora === horaSelecionada &&
         a.data === dataSelecionada
     );
-
     if (conflito) {
       alert("Este horário já está ocupado!");
       return;
     }
-
-    const novoAgendamento = {
-      barbeiro: barbeiroSelecionado,
-      hora: horaSelecionada,
-      nome: form.nome.value,
-      telefone: telefone,
-      servico: form.servico.value,
-      data: dataSelecionada
-    };
-
-    setAgendamentos([...agendamentos, novoAgendamento]);
+    setAgendamentos([
+      ...agendamentos,
+      {
+        barbeiro: barbeiroSelecionado,
+        hora: horaSelecionada,
+        nome: nomeForm,
+        telefone,
+        servico: servicoForm,
+        data: dataSelecionada,
+      },
+    ]);
     fecharCard();
   };
 
-  const confirmarReagendamento = (evento) => {
-    evento.preventDefault();
-    const form = evento.target;
-
-    const novoHorario = form.hora.value;
-
+  const confirmarReagendamento = () => {
+    if (!novoHorario) {
+      alert("Selecione um horário!");
+      return;
+    }
     const conflito = agendamentos.some(
       (a) =>
         a.barbeiro === novoBarbeiro &&
@@ -138,24 +154,18 @@ export default function AgendaPage() {
         a.data === novaData &&
         a !== agendamentoAtual
     );
-
     if (conflito) {
       alert("Este horário já está ocupado!");
       return;
     }
-
-    const agendamentosAtualizados = agendamentos.filter(
-      (a) => a !== agendamentoAtual
-    );
-
-    agendamentosAtualizados.push({
+    const atualizados = agendamentos.filter((a) => a !== agendamentoAtual);
+    atualizados.push({
       ...agendamentoAtual,
       hora: novoHorario,
       data: novaData,
-      barbeiro: novoBarbeiro
+      barbeiro: novoBarbeiro,
     });
-
-    setAgendamentos(agendamentosAtualizados);
+    setAgendamentos(atualizados);
     fecharCard();
   };
 
@@ -170,8 +180,17 @@ export default function AgendaPage() {
     const msg = encodeURIComponent(
       "Olá, infelizmente precisaremos desmarcar seu horário. Por favor, reagende."
     );
-
     window.open(`https://wa.me/55${telefoneNumero}?text=${msg}`, "_blank");
+  };
+
+  const formatarTelefone = (valor) => {
+    const v = valor.replace(/\D/g, "").slice(0, 11);
+
+    if (v.length <= 2) return v.length ? `(${v}` : "";
+    if (v.length <= 6) return `(${v.slice(0, 2)}) ${v.slice(2)}`;
+    if (v.length <= 10) return `(${v.slice(0, 2)}) ${v.slice(2, 6)}-${v.slice(6)}`;
+
+    return `(${v.slice(0, 2)}) ${v.slice(2, 7)}-${v.slice(7)}`;
   };
 
   return (
@@ -179,7 +198,6 @@ export default function AgendaPage() {
       <NavbarSimples />
 
       <div className="agenda-page">
-
         <h2>
           Agenda -{" "}
           {new Date(dataSelecionada + "T00:00:00").toLocaleDateString("pt-BR")}
@@ -191,10 +209,9 @@ export default function AgendaPage() {
             value={dataSelecionada}
             onChange={(e) => setDataSelecionada(e.target.value)}
           />
-
           <button
             onClick={() =>
-              setDataSelecionada(new Date().toISOString().split("T")[0])
+              setDataSelecionada(getDataLocalISO())
             }
           >
             Hoje
@@ -239,10 +256,7 @@ export default function AgendaPage() {
                 </span>
 
                 {!agendamento ? (
-                  <button
-                    className="btn-add"
-                    onClick={() => abrirCard(hora)}
-                  >
+                  <button className="btn-add" onClick={() => abrirCard(hora)}>
                     +
                   </button>
                 ) : (
@@ -250,11 +264,9 @@ export default function AgendaPage() {
                     <button onClick={() => abrirReagendar(agendamento)}>
                       Reagendar
                     </button>
-
                     <button onClick={() => excluirAgendamento(agendamento)}>
                       Excluir
                     </button>
-
                     <button onClick={() => avisarCliente(agendamento)}>
                       Avisar
                     </button>
@@ -268,11 +280,7 @@ export default function AgendaPage() {
 
       {cardAberto && (
         <div className={`card-overlay ${fechandoCard ? "fechando" : ""}`}>
-          <form
-            className={`card-agendamento ${fechandoCard ? "fechando" : ""}`}
-            onSubmit={modoReagendar ? confirmarReagendamento : adicionarCliente}
-          >
-
+          <div className={`card-agendamento ${fechandoCard ? "fechando" : ""}`}>
             {modoReagendar ? (
               <>
                 <h3>Reagendar - {agendamentoAtual?.nome}</h3>
@@ -283,7 +291,6 @@ export default function AgendaPage() {
                     type="date"
                     value={novaData}
                     onChange={(e) => setNovaData(e.target.value)}
-                    required
                   />
                 </label>
 
@@ -292,40 +299,29 @@ export default function AgendaPage() {
                   <select
                     value={novoBarbeiro}
                     onChange={(e) => setNovoBarbeiro(e.target.value)}
-                    required
                   >
                     {barbeiros.map((b) => (
-                      <option key={b} value={b}>
-                        {b}
-                      </option>
+                      <option key={b} value={b}>{b}</option>
                     ))}
                   </select>
                 </label>
 
                 <label>
                   Horário:
-                  <select name="hora" required defaultValue="">
-                    <option value="" disabled>
-                      Selecione
-                    </option>
-
-                    {horariosLivres(
-                      novoBarbeiro,
-                      novaData,
-                      agendamentoAtual
-                    ).map((h) => (
-                      <option key={h} value={h}>
-                        {h}
-                      </option>
+                  <select
+                    value={novoHorario}
+                    onChange={(e) => setNovoHorario(e.target.value)}
+                  >
+                    <option value="" disabled>Selecione</option>
+                    {horariosLivres(novoBarbeiro, novaData, agendamentoAtual).map((h) => (
+                      <option key={h} value={h}>{h}</option>
                     ))}
                   </select>
                 </label>
 
                 <div className="card-buttons">
-                  <button type="submit">Confirmar</button>
-                  <button type="button" onClick={fecharCard}>
-                    Cancelar
-                  </button>
+                  <button type="button" onClick={confirmarReagendamento}>Confirmar</button>
+                  <button type="button" onClick={fecharCard}>Cancelar</button>
                 </div>
               </>
             ) : (
@@ -334,37 +330,28 @@ export default function AgendaPage() {
 
                 <label>
                   Nome:
-                  <input type="text" name="nome" required />
+                  <input
+                    type="text"
+                    value={nomeForm}
+                    onChange={(e) => setNomeForm(e.target.value)}
+                  />
                 </label>
 
                 <label>
                   Telefone:
                   <input
                     type="text"
-                    name="telefone"
                     value={telefone}
-                    onChange={(e) => {
-                      let v = e.target.value.replace(/\D/g, "");
-
-                      if (v.length > 10) v = v.slice(0, 10);
-
-                      if (v.length > 6) {
-                        v = `(${v.slice(0, 2)}) ${v.slice(2, 6)} - ${v.slice(6)}`;
-                      } else if (v.length > 2) {
-                        v = `(${v.slice(0, 2)}) ${v.slice(2)}`;
-                      } else if (v.length > 0) {
-                        v = `(${v}`;
-                      }
-
-                      setTelefone(v);
-                    }}
-                    required
+                    onChange={(e) => setTelefone(formatarTelefone(e.target.value))}
                   />
                 </label>
 
                 <label>
                   Serviço:
-                  <select name="servico" required>
+                  <select
+                    value={servicoForm}
+                    onChange={(e) => setServicoForm(e.target.value)}
+                  >
                     <option value="">Selecione</option>
                     <option value="Corte">Corte</option>
                     <option value="Barba">Barba</option>
@@ -372,33 +359,13 @@ export default function AgendaPage() {
                   </select>
                 </label>
 
-                <label>
-                  Horário:
-                  <select name="hora" required defaultValue="">
-                    <option value="" disabled>
-                      Selecione
-                    </option>
-
-                    {horariosLivres(
-                      barbeiroSelecionado,
-                      dataSelecionada
-                    ).map((h) => (
-                      <option key={h} value={h}>
-                        {h}
-                      </option>
-                    ))}
-                  </select>
-                </label>
-
                 <div className="card-buttons">
-                  <button type="submit">Adicionar</button>
-                  <button type="button" onClick={fecharCard}>
-                    Cancelar
-                  </button>
+                  <button type="button" onClick={adicionarCliente}>Adicionar</button>
+                  <button type="button" onClick={fecharCard}>Cancelar</button>
                 </div>
               </>
             )}
-          </form>
+          </div>
         </div>
       )}
     </>
@@ -407,23 +374,17 @@ export default function AgendaPage() {
 
 function gerarHorarios() {
   const horarios = [];
-
   let hora = 9;
   let minuto = 0;
-
   while (hora < 18) {
     const h = String(hora).padStart(2, "0");
     const m = String(minuto).padStart(2, "0");
-
     horarios.push(`${h}:${m}`);
-
     minuto += 30;
-
     if (minuto === 60) {
       minuto = 0;
       hora++;
     }
   }
-
   return horarios;
 }

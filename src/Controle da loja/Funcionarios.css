@@ -5,7 +5,7 @@
   max-width: 750px;
   width: 100%;
   height: 700px; /* altura fixa do card */
-  padding: 5px 25px 25px 25px; /* mais espaço interno no topo */
+  padding: 30px 25px 25px 25px; /* mais espaço interno no topo */
   background: #04090D;
   border: 3px solid #BF925A;
   border-radius: 10px;
@@ -20,9 +20,8 @@
 /* ============================================= */
 /*                TÍTULO DA PÁGINA             */
 /* ============================================= */
-h2 {
-  margin-top: -50px;
-  margin-bottom: 8px;
+.funcionario-page h2 {
+  margin-top: 0;
   text-align: center;
   margin-bottom: 15px;
   font-size: 24px;
@@ -148,4 +147,57 @@ h2 {
   background-color: #8C442A;
   border-radius: 5px;
   border: 2px solid #04090D;
+}
+
+/* ============================================= */
+/*            MODAL DE CONFIRMAÇÃO              */
+/* ============================================= */
+.modal-confirm {
+  position: fixed;
+  inset: 0;
+  background: rgba(4, 9, 13, 0.6);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1200;
+}
+
+.modal-content {
+  width: min(360px, 92vw);
+  background: #04090D;
+  border: 2px solid #BF925A;
+  border-radius: 10px;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  text-align: center;
+}
+
+.modal-content button {
+  border: none;
+  border-radius: 6px;
+  padding: 8px 10px;
+  cursor: pointer;
+  background: #BF925A;
+  color: #04090D;
+}
+
+.modal-content button:hover {
+  opacity: 0.9;
+}
+
+@media (max-width: 840px) {
+  .funcionario-page {
+    margin: 90px 12px 16px;
+    max-width: none;
+    height: auto;
+    min-height: calc(100vh - 110px);
+  }
+
+  .funcionario-card .acoes-funcionario {
+    flex-wrap: wrap;
+  }
 }

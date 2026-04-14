@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
-import App from "./ADM/AdmHome";
+import App from "./webClient/HomeWC";
 import "./index.css";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
@@ -9,3 +9,4 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     <App />
   </BrowserRouter>
 );
+

@@ -8,55 +8,58 @@ import show from "../../1Assets/show.png";
 
 export default function LoginCard({ onClose }) {
   const [mostrarSenhaLogin, setMostrarSenhaLogin] = useState(false);
+  const fecharModal = () => {
+    onClose?.();
+  };
 
   return (
-    <div className="container">
-      <div className="login-card-wrapper">
-        <div className="login-card-front">
-          <img
-            src={closeIcon}
-            alt="Fechar"
-            className="close-icon"
-            onClick={onClose}
-          />
+    <div className="login-card-modal">
+      <div className="container">
+        <div className="login-card-wrapper">
+          <div className="login-card-front">
+            <img
+              src={closeIcon}
+              alt="Fechar"
+              className="close-icon"
+              onClick={fecharModal}
+            />
 
-          <div className="login-left">
-            <h2>Seja Bem-vindo!</h2>
+            <div className="login-left">
+              <h2>Seja Bem-vindo!</h2>
 
-            <div className="input-group">
-              <label>Usuário</label>
-              <div className="input-with-icon">
-                <input
-                  type="text"
-                  placeholder="Email / Usuário"
-                  autoComplete="off"
-                />
-                <img src={user} alt="Usuário" className="icon-right" />
+              <div className="input-group">
+                <label>Usuário</label>
+                <div className="input-with-icon">
+                  <input
+                    type="text"
+                    placeholder="Email / Usuário"
+                    autoComplete="off"
+                  />
+                  <img src={user} alt="Usuário" className="icon-right" />
+                </div>
               </div>
-            </div>
 
-            <div className="input-group">
-              <label>Senha</label>
-              <div className="input-with-icon">
-                <input
-                  type={mostrarSenhaLogin ? "text" : "password"}
-                  placeholder="••••••••••••"
-                  autoComplete="current-password"
-                />
-                <img
-                  src={mostrarSenhaLogin ? show : hide}
-                  alt="Alternar visibilidade da senha"
-                  className="icon-right"
-                  onClick={() =>
-                    setMostrarSenhaLogin(!mostrarSenhaLogin)
-                  }
-                />
+              <div className="input-group">
+                <label>Senha</label>
+                <div className="input-with-icon">
+                  <input
+                    type={mostrarSenhaLogin ? "text" : "password"}
+                    placeholder="••••••••••••"
+                    autoComplete="current-password"
+                  />
+                  <img
+                    src={mostrarSenhaLogin ? show : hide}
+                    alt="Alternar visibilidade da senha"
+                    className="icon-right"
+                    onClick={() =>
+                      setMostrarSenhaLogin(!mostrarSenhaLogin)
+                    }
+                  />
+                </div>
               </div>
+
+              <button type="button" className="login-btn">Entrar</button>
             </div>
-
-            
-
-            <button className="login-btn">Entrar</button>
           </div>
         </div>
       </div>

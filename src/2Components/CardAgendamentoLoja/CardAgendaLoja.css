@@ -5,71 +5,54 @@ body {
 
 .container {
   position: fixed;
-
   top: 0;
   left: 0;
-
   width: 100vw;
   height: 100vh;
+  padding: 16px;
+  box-sizing: border-box;
 
   display: flex;
   justify-content: center;
   align-items: center;
-overflow: hidden;
+
+  overflow: hidden;
   z-index: 9999;
+
+  background: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 
 .agendamento-card {
-  width: 400px;
-  padding: 30px 25px;
+  width: min(400px, 100%);
+  max-height: calc(100vh - 32px);
+  padding: 30px 24px;
   border-radius: 12px;
+
   background: linear-gradient(150deg, #04090D, #D9C7B8);
-  box-shadow: 0 10px 30px rgba(4, 9, 13, 0.5), 0 4px 15px rgba(4, 9, 13, 0.3);
+  box-shadow: 0 10px 30px rgba(4, 9, 13, 0.5),
+              0 4px 15px rgba(4, 9, 13, 0.3);
+
   color: #D9C7B8;
+
   position: relative;
+
   display: flex;
   flex-direction: column;
   align-items: center;
-  backface-visibility: hidden;
-  overflow: hidden;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .agendamento-card h2 {
   margin-bottom: 20px;
-  font-size: 28px;
+  font-size: clamp(24px, 5vw, 28px);
   text-align: center;
   color: #BF925A;
 }
 
-.card-wrapper {
-  perspective: 1000px;
-}
-
-.card {
-  width: 400px;
-   min-height: 600px;
-  position: relative;
-  transform-style: preserve-3d;
-  transition: transform 0.6s;
-}
-
-.card.flipped {
-  transform: rotateY(180deg);
-}
-
-.card-face {
-  position: absolute;
-  width: 100%;
-  backface-visibility: hidden;
-}
-
-.card-face.back {
-  transform: rotateY(180deg);
-}
-
-.agendamento-card {
-  backface-visibility: hidden;
-}
+/* Inputs */
 
 .input-group {
   width: 100%;
@@ -89,20 +72,32 @@ overflow: hidden;
   width: 100%;
 }
 
-.input-with-icon input {
+.input-with-icon input,
+.input-with-icon select {
   width: 100%;
   padding: 10px 40px 10px 10px;
+
   border-radius: 20px;
   border: 2px solid #BF925A;
+
   background: transparent;
   color: #D9C7B8;
-  font-size: 15px;
+
+  font-size: 16px;
   box-sizing: border-box;
+
+  appearance: none;
 }
 
 .input-with-icon input::placeholder {
   color: rgba(217, 199, 184, 0.5);
 }
+
+.input-with-icon select option {
+  color: #04090D;
+}
+
+/* Ícones dentro dos inputs */
 
 .icon-right {
   position: absolute;
@@ -117,106 +112,35 @@ overflow: hidden;
   cursor: pointer;
 }
 
-.agendar-btn {
-  width: 100%;
-  padding: 12px;
-  margin-top: 10px;
-  border-radius: 20px;
-  border: none;
-  background-color: #BF925A;
-  font-weight: bold;
-  color: #04090D;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-.agendar-btn:hover {
-  background-color: #8C442A;
-}
-
-.reagendar-btn {
-
-  width: 100%;
-  padding: 12px;
-  margin-top: 10px;
-
-  border-radius: 20px;
-  border: none;
-
-  background-color: #BF925A;
-
-  font-weight: bold;
-  color: #04090D;
-
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-.reagendar-btn:hover {
-  background-color: #8C442A;
-}
-
-.input-with-icon select {
-  width: 100%;
-  padding: 10px 40px 10px 10px;
-  border-radius: 20px;
-  border: 2px solid #BF925A;
-  background: transparent;
-  color: #D9C7B8;
-  font-size: 15px;
-  box-sizing: border-box;
-  appearance: none;
-}
-
-.input-with-icon select option {
-  color: #04090D;
-}
+/* Select com seta customizada */
 
 .select-barbeiro {
-  width: 100%;
-  padding: 10px 40px 10px 10px;
-  border-radius: 20px;
-  border: 2px solid #BF925A;
-  background: transparent;
-  color: #D9C7B8;
-  font-size: 15px;
-  box-sizing: border-box;
-  appearance: none;
   cursor: pointer;
-
-  /* seta */
   background-image: url("data:image/svg+xml;utf8,<svg fill='%23D9C7B8' height='20' viewBox='0 0 24 24' width='20' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
   background-repeat: no-repeat;
   background-position: right 12px center;
 }
 
-.select-barbeiro option {
-  color: #04090D;
-}
+/* Inputs de data e hora */
 
-/* Para inputs de data e hora */
 input[type="date"],
 input[type="time"] {
   -webkit-appearance: none;
   -moz-appearance: textfield;
   appearance: none;
+
   background: transparent;
   color: #D9C7B8;
+
   border: 2px solid #BF925A;
   border-radius: 20px;
+
   padding: 10px 40px 10px 10px;
-  font-size: 15px;
+  font-size: 16px;
 }
 
-/* Remove o ícone de calendário do IE/Edge */
-input[type="date"]::-ms-clear,
-input[type="date"]::-ms-expand,
-input[type="time"]::-ms-clear,
-input[type="time"]::-ms-expand {
-  display: none;
-}
+/* Remove ícones nativos */
 
-/* Remove os ícones nativos no Chrome/Safari */
 input[type="date"]::-webkit-inner-spin-button,
 input[type="date"]::-webkit-calendar-picker-indicator,
 input[type="time"]::-webkit-inner-spin-button,
@@ -225,29 +149,41 @@ input[type="time"]::-webkit-calendar-picker-indicator {
   -webkit-appearance: none;
 }
 
-/* Icone voltar */
-.back-icon {
-  position: absolute;
-  top: 18px;
-  left: 18px;
-  width: 28px;
-  height: 28px;
+/* Botões */
+
+.agendar-btn,
+.reagendar-btn {
+  width: 100%;
+  padding: 12px;
+  margin-top: 10px;
+
+  border-radius: 20px;
+  border: none;
+
+  background-color: #BF925A;
+  color: #04090D;
+
+  font-weight: bold;
   cursor: pointer;
-  filter: brightness(0) invert(1);
+
   transition: 0.3s;
 }
 
-.back-icon:hover {
-  filter: brightness(1) invert(0);
+.agendar-btn:hover,
+.reagendar-btn:hover {
+  background-color: #8C442A;
 }
 
-/* Garante que o close fique sempre na direita */
+/* Botão fechar */
+
 .close-icon {
   position: absolute;
   top: 18px;
   right: 18px;
+
   width: 28px;
   height: 28px;
+
   cursor: pointer;
   filter: brightness(0) invert(1);
   transition: 0.3s;
@@ -256,3 +192,93 @@ input[type="time"]::-webkit-calendar-picker-indicator {
 .close-icon:hover {
   filter: brightness(1) invert(0);
 }
+
+.input-erro {
+  border: 2px solid #ff4d4f !important;
+}
+
+.erro-texto {
+  color: #ff4d4f;
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 12px;
+  }
+
+  .agendamento-card {
+    max-height: calc(100vh - 24px);
+    padding: 22px 16px;
+    border-radius: 10px;
+  }
+
+  .input-group {
+    margin-bottom: 14px;
+  }
+
+  .close-icon {
+    top: 12px;
+    right: 12px;
+    width: 24px;
+    height: 24px;
+  }
+
+  .icon-right {
+    right: 10px;
+    width: 18px;
+    height: 18px;
+  }
+}
+
+/* ANIMAÇÃO OVERLAY */
+.container {
+  animation: fadeIn 0.3s ease;
+}
+
+.container.fechando {
+  animation: fadeOut 0.3s ease forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+/* ANIMAÇÃO CARD (ZOOM) */
+.agendamento-card {
+  animation: zoomIn 0.3s ease;
+}
+
+.agendamento-card.fechando {
+  animation: zoomOut 0.3s ease forwards;
+}
+
+@keyframes zoomIn {
+  from {
+    transform: scale(0.7);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes zoomOut {
+  from {
+    transform: scale(1);
+    opacity: 1;
+  }
+  to {
+    transform: scale(0.7);
+    opacity: 0;
+  }
+}
+

@@ -5,71 +5,115 @@ import calendarIcon from "../../1Assets/calendar.png";
 import clockIcon from "../../1Assets/clock.png";
 import userIcon from "../../1Assets/user.png";
 import phoneIcon from "../../1Assets/phone.png";
-import arrowIcon from "../../1Assets/arrow.png";
 
 export default function CardAgendamento({ onClose }) {
-  const [isFlipped, setIsFlipped] = useState(false);
+  const [data, setData] = useState("");
+  const [hora, setHora] = useState("");
+  const [nome, setNome] = useState("");
+  const [telefone, setTelefone] = useState("");
+  const [barbeiro, setBarbeiro] = useState("");
+  const [erros, setErros] = useState({});
+  const [fechando, setFechando] = useState(false);
 
-  // Estados independentes para a frente
-  const [dataFront, setDataFront] = useState("");
-  const [horaFront, setHoraFront] = useState("");
-  const [nomeFront, setNomeFront] = useState("");
-  const [telefoneFront, setTelefoneFront] = useState("");
-  const [barbeiroFront, setBarbeiroFront] = useState("");
+  const dataRef = useRef(null);
+  const telefoneRef = useRef(null);
 
-  // Estados independentes para o verso
-  const [dataBack, setDataBack] = useState("");
-  const [horaBack, setHoraBack] = useState("");
-  const [nomeBack, setNomeBack] = useState("");
-  const [telefoneBack, setTelefoneBack] = useState("");
-  const [barbeiroBack, setBarbeiroBack] = useState("");
+  const barbeiros = ["Carlos", "João", "Mario"];
+  const dataMinima = (() => {
+    const hoje = new Date();
+    const ano = hoje.getFullYear();
+    const mes = String(hoje.getMonth() + 1).padStart(2, "0");
+    const dia = String(hoje.getDate()).padStart(2, "0");
 
-  const dataRefFront = useRef(null);
-  const horaRefFront = useRef(null);
-  const dataRefBack = useRef(null);
-  const horaRefBack = useRef(null);
+    return `${ano}-${mes}-${dia}`;
+  })();
 
-  const barbeiros = ["Carlos", "João", "Marcos", "Fernando"];
+  const formatarTelefone = (valor) => {
+    const digits = valor.replace(/\D/g, "").slice(0, 11);
 
-  const confirmarAgendamento = (lado) => {
-    const agendamento = lado === "front"
-      ? { nome: nomeFront, telefone: telefoneFront, barbeiro: barbeiroFront, data: dataFront, hora: horaFront }
-      : { nome: nomeBack, telefone: telefoneBack, barbeiro: barbeiroBack, data: dataBack, hora: horaBack };
-    console.log(`${lado === "front" ? "Agendamento" : "Reagendamento"}:`, agendamento);
+    if (digits.length <= 2) return digits.length ? `(${digits}` : "";
+    if (digits.length <= 6)
+      return `(${digits.slice(0, 2)}) ${digits.slice(2)}`;
+    if (digits.length <= 10)
+      return `(${digits.slice(0, 2)}) ${digits.slice(2, 6)}-${digits.slice(6)}`;
+
+    return `(${digits.slice(0, 2)}) ${digits.slice(2, 7)}-${digits.slice(7)}`;
   };
 
-  const renderForm = (lado) => {
-    const isBack = lado === "back";
-    const nome = isBack ? nomeBack : nomeFront;
-    const setNome = isBack ? setNomeBack : setNomeFront;
-    const telefone = isBack ? telefoneBack : telefoneFront;
-    const setTelefone = isBack ? setTelefoneBack : setTelefoneFront;
-    const barbeiro = isBack ? barbeiroBack : barbeiroFront;
-    const setBarbeiro = isBack ? setBarbeiroBack : setBarbeiroFront;
-    const data = isBack ? dataBack : dataFront;
-    const setData = isBack ? setDataBack : setDataFront;
-    const hora = isBack ? horaBack : horaFront;
-    const setHora = isBack ? setHoraBack : setHoraFront;
-    const dataRef = isBack ? dataRefBack : dataRefFront;
-    const horaRef = isBack ? horaRefBack : horaRefFront;
+  function gerarHorarios(inicio = 7, fim = 21, intervalo = 30) {
+    const horarios = [];
 
-    return (
-      <div className="agendamento-card">
-        {isBack && (
-          <img
-            src={arrowIcon}
-            alt="Voltar"
-            className="back-icon"
-            onClick={() => setIsFlipped(false)}
-          />
-        )}
+    for (
+      let minutosTotais = inicio * 60;
+      minutosTotais <= fim * 60;
+      minutosTotais += intervalo
+    ) {
+      const hora = String(Math.floor(minutosTotais / 60)).padStart(2, "0");
+      const minuto = String(minutosTotais % 60).padStart(2, "0");
+      horarios.push(`${hora}:${minuto}`);
+    }
+
+    return horarios;
+  }
+
+  const limparErroCampo = (campo) => {
+    setErros((estadoAtual) => {
+      if (!estadoAtual[campo]) return estadoAtual;
+
+      const novosErros = { ...estadoAtual };
+      delete novosErros[campo];
+      return novosErros;
+    });
+  };
+
+  const validar = () => {
+    const novosErros = {};
+    const telefoneLimpo = telefone.replace(/\D/g, "");
+
+    if (!nome.trim()) novosErros.nome = "Nome é obrigatório";
+    if (telefoneLimpo.length < 10 || telefoneLimpo.length > 11)
+      novosErros.telefone = "Telefone inválido";
+    if (!barbeiro) novosErros.barbeiro = "Selecione um barbeiro";
+    if (!data) novosErros.data = "Selecione uma data";
+    if (data && data < dataMinima) novosErros.data = "Escolha uma data válida";
+    if (!hora) novosErros.hora = "Selecione um horário";
+
+    setErros(novosErros);
+    return Object.keys(novosErros).length === 0;
+  };
+
+  const confirmar = (tipo) => {
+    if (!validar()) return;
+
+    const agendamento = {
+      nome,
+      telefone,
+      barbeiro,
+      data,
+      hora,
+    };
+
+    console.log(`${tipo}:`, agendamento);
+  };
+
+  const fecharComAnimacao = () => {
+    setFechando(true);
+    setTimeout(() => {
+      onClose();
+    }, 300);
+  };
+
+  return (
+    <div className={`container ${fechando ? "fechando" : ""}`}>
+      <div className={`agendamento-card ${fechando ? "fechando" : ""}`}>
         <img
           src={closeIcon}
           alt="Fechar"
           className="close-icon"
-          onClick={onClose}
+          onClick={fecharComAnimacao}
         />
-        <h2>{isBack ? "Reagendar" : "Agendar Horário"}</h2>
+
+        <h2>Agendamento</h2>
 
         {/* Nome */}
         <div className="input-group">
@@ -79,10 +123,15 @@ export default function CardAgendamento({ onClose }) {
               type="text"
               placeholder="Seu nome"
               value={nome}
-              onChange={(e) => setNome(e.target.value)}
+              onChange={(e) => {
+                setNome(e.target.value);
+                limparErroCampo("nome");
+              }}
+              className={erros.nome ? "input-erro" : ""}
             />
-            <img src={userIcon} alt="Nome" className="icon-right" />
+            <img src={userIcon} alt="" className="icon-right" />
           </div>
+          {erros.nome && <span className="erro-texto">{erros.nome}</span>}
         </div>
 
         {/* Telefone */}
@@ -90,27 +139,37 @@ export default function CardAgendamento({ onClose }) {
           <label>Telefone</label>
           <div className="input-with-icon">
             <input
+              ref={telefoneRef}
               type="tel"
-              placeholder="(00) 0000 - 0000"
+              placeholder="(00) 00000-0000"
               value={telefone}
-              maxLength={16}
-              onInput={(e) => {
-                let x = e.target.value.replace(/\D/g, "");
-                if (x.length > 11) x = x.slice(0, 11);
-                if (x.length > 10) {
-                  e.target.value = `(${x.slice(0, 2)}) ${x.slice(2, 7)} - ${x.slice(7)}`;
-                } else if (x.length > 6) {
-                  e.target.value = `(${x.slice(0, 2)}) ${x.slice(2, 6)} - ${x.slice(6)}`;
-                } else if (x.length > 2) {
-                  e.target.value = `(${x.slice(0, 2)}) ${x.slice(2)}`;
-                } else if (x.length > 0) {
-                  e.target.value = `(${x}`;
-                }
-                setTelefone(e.target.value);
+              onChange={(e) => {
+                const input = e.target;
+                const valorOriginal = input.value;
+                const posicaoCursor = input.selectionStart ?? valorOriginal.length;
+
+                const valorFormatado = formatarTelefone(valorOriginal);
+                setTelefone(valorFormatado);
+                limparErroCampo("telefone");
+
+                requestAnimationFrame(() => {
+                  if (telefoneRef.current) {
+                    const ajuste = valorFormatado.length - valorOriginal.length;
+                    const novaPosicao = Math.max(0, posicaoCursor + ajuste);
+                    telefoneRef.current.setSelectionRange(
+                      novaPosicao,
+                      novaPosicao
+                    );
+                  }
+                });
               }}
+              className={erros.telefone ? "input-erro" : ""}
             />
-            <img src={phoneIcon} alt="Telefone" className="icon-right" />
+            <img src={phoneIcon} alt="" className="icon-right" />
           </div>
+          {erros.telefone && (
+            <span className="erro-texto">{erros.telefone}</span>
+          )}
         </div>
 
         {/* Barbeiro */}
@@ -118,9 +177,14 @@ export default function CardAgendamento({ onClose }) {
           <label>Barbeiro</label>
           <div className="input-with-icon">
             <select
-              className="select-barbeiro"
+              className={`select-barbeiro ${
+                erros.barbeiro ? "input-erro" : ""
+              }`}
               value={barbeiro}
-              onChange={(e) => setBarbeiro(e.target.value)}
+              onChange={(e) => {
+                setBarbeiro(e.target.value);
+                limparErroCampo("barbeiro");
+              }}
             >
               <option value="">Escolha um barbeiro</option>
               {barbeiros.map((b, i) => (
@@ -130,6 +194,9 @@ export default function CardAgendamento({ onClose }) {
               ))}
             </select>
           </div>
+          {erros.barbeiro && (
+            <span className="erro-texto">{erros.barbeiro}</span>
+          )}
         </div>
 
         {/* Data */}
@@ -140,56 +207,67 @@ export default function CardAgendamento({ onClose }) {
               ref={dataRef}
               type="date"
               value={data}
-              onChange={(e) => setData(e.target.value)}
+              min={dataMinima}
+              onChange={(e) => {
+                setData(e.target.value);
+                limparErroCampo("data");
+              }}
+              className={erros.data ? "input-erro" : ""}
             />
             <img
               src={calendarIcon}
-              alt="Data"
+              alt=""
               className="icon-right"
               onClick={() => dataRef.current?.showPicker?.()}
             />
           </div>
+          {erros.data && (
+            <span className="erro-texto">{erros.data}</span>
+          )}
         </div>
 
         {/* Hora */}
         <div className="input-group">
           <label>Hora</label>
           <div className="input-with-icon">
-            <input
-              ref={horaRef}
-              type="time"
+            <select
               value={hora}
-              onChange={(e) => setHora(e.target.value)}
-            />
-            <img
-              src={clockIcon}
-              alt="Hora"
-              className="icon-right"
-              onClick={() => horaRef.current?.showPicker?.()}
-            />
+              onChange={(e) => {
+                setHora(e.target.value);
+                limparErroCampo("hora");
+              }}
+              className={`select-barbeiro ${
+                erros.hora ? "input-erro" : ""
+              }`}
+            >
+              <option value="">Selecione um horário</option>
+              {gerarHorarios().map((h) => (
+                <option key={h} value={h}>
+                  {h}
+                </option>
+              ))}
+            </select>
+
+            <img src={clockIcon} alt="" className="icon-right" />
           </div>
+          {erros.hora && (
+            <span className="erro-texto">{erros.hora}</span>
+          )}
         </div>
 
-        <button className="agendar-btn" onClick={() => confirmarAgendamento(lado)}>
-          {isBack ? "Confirmar Reagendamento" : "Confirmar Agendamento"}
+        <button
+          className="agendar-btn"
+          onClick={() => confirmar("Agendamento")}
+        >
+          Confirmar Agendamento
         </button>
 
-        {!isBack && (
-          <button className="reagendar-btn" onClick={() => setIsFlipped(true)}>
-            Reagendar
-          </button>
-        )}
-      </div>
-    );
-  };
-
-  return (
-    <div className="container">
-      <div className="card-wrapper">
-        <div className={`card ${isFlipped ? "flipped" : ""}`}>
-          <div className="card-face front">{renderForm("front")}</div>
-          <div className="card-face back">{renderForm("back")}</div>
-        </div>
+        <button
+          className="reagendar-btn"
+          onClick={() => confirmar("Reagendamento")}
+        >
+          Confirmar Reagendamento
+        </button>
       </div>
     </div>
   );

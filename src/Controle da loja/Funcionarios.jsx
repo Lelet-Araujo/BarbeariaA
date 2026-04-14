@@ -15,17 +15,47 @@ export default function FuncionarioPage() {
     const [funcToDelete, setFuncToDelete] = useState(null); // Para o modal de confirmação
 
     const handleSalvar = () => {
+        const nome = novoFuncionario.nome.trim();
+        const funcao = novoFuncionario.funcao.trim();
+        const email = novoFuncionario.email.trim();
+        const telefone = novoFuncionario.telefone.trim();
+        const telefoneLimpo = telefone.replace(/\D/g, "");
+        const emailValido = /\S+@\S+\.\S+/.test(email);
+
+        if (!nome || !funcao || !telefone || !email) {
+            alert("Preencha todos os campos!");
+            return;
+        }
+
+        if (telefoneLimpo.length < 10 || telefoneLimpo.length > 11) {
+            alert("Telefone inválido!");
+            return;
+        }
+
+        if (!emailValido) {
+            alert("Email inválido!");
+            return;
+        }
+
+        const funcionarioPayload = {
+            ...novoFuncionario,
+            nome,
+            funcao,
+            telefone,
+            email
+        };
+
         if (editId) {
-            setFuncionarios(funcionarios.map(f => f.id === editId ? { ...novoFuncionario, id: editId } : f));
+            setFuncionarios(funcionarios.map(f => f.id === editId ? { ...funcionarioPayload, id: editId } : f));
         } else {
-            setFuncionarios([...funcionarios, { ...novoFuncionario, id: Date.now() }]);
+            setFuncionarios([...funcionarios, { ...funcionarioPayload, id: Date.now() }]);
         }
         setNovoFuncionario({ nome: "", funcao: "", telefone: "", email: "", ativo: true });
         setEditId(null);
     };
 
     const handleEditar = (func) => {
-        setNovoFuncionario(func);
+        setNovoFuncionario({ ...func });
         setEditId(func.id);
     };
 
@@ -48,7 +78,7 @@ export default function FuncionarioPage() {
         <>
             <NavbarSimples />
 
-            <div className="funcionario-page" style={{ paddingTop: "80px" }}>
+            <div className="funcionario-page">
                 <h2>Funcionários</h2>
 
                 <div className="funcionario-form">
@@ -64,30 +94,44 @@ export default function FuncionarioPage() {
                         value={novoFuncionario.funcao}
                         onChange={(e) => setNovoFuncionario({ ...novoFuncionario, funcao: e.target.value })}
                     />
-                    <input
-                        type="tel"
-                        placeholder="Telefone"
-                        value={novoFuncionario.telefone}
-                        onChange={(e) => {
-                            let x = e.target.value.replace(/\D/g, "");
-                            if (x.length > 10) x = x.slice(0, 10);
-                            if (x.length > 6) {
-                                x = `(${x.slice(0, 2)}) ${x.slice(2, 6)} - ${x.slice(6)}`;
-                            } else if (x.length > 2) {
-                                x = `(${x.slice(0, 2)}) ${x.slice(2)}`;
-                            } else if (x.length > 0) {
-                                x = `(${x}`;
-                            }
-                            setNovoFuncionario({ ...novoFuncionario, telefone: x });
-                        }}
-                    />
+                   <input
+  type="tel"
+  placeholder="Telefone"
+  value={novoFuncionario.telefone}
+  onChange={(e) => {
+    const input = e.target;
+    const selectionStart = input.selectionStart;
+
+    // Remove tudo que não é número e limita a 11 dígitos
+    let digits = input.value.replace(/\D/g, "").slice(0, 11);
+
+    // Formata telefone conforme quantidade de dígitos
+    let formatted;
+    if (digits.length <= 10) {
+      // Telefone fixo ou celular antigo
+      formatted = digits.replace(/(\d{2})(\d{4})(\d{0,4})/, "($1) $2-$3").trim();
+    } else {
+      // Celular novo com 9 dígitos
+      formatted = digits.replace(/(\d{2})(\d{5})(\d{0,4})/, "($1) $2-$3").trim();
+    }
+
+    // Atualiza estado
+    setNovoFuncionario({ ...novoFuncionario, telefone: formatted });
+
+    // Mantém cursor na posição correta
+    setTimeout(() => {
+      input.selectionStart = selectionStart;
+      input.selectionEnd = selectionStart;
+    }, 0);
+  }}
+/>
                     <input
                         type="email"
                         placeholder="Email"
                         value={novoFuncionario.email}
                         onChange={(e) => setNovoFuncionario({ ...novoFuncionario, email: e.target.value })}
                     />
-                    <button onClick={handleSalvar}>{editId ? "Atualizar" : "Adicionar"}</button>
+                    <button type="button" onClick={handleSalvar}>{editId ? "Atualizar" : "Adicionar"}</button>
                 </div>
 
                 <div className="funcionario-list">
@@ -102,12 +146,12 @@ export default function FuncionarioPage() {
                             </div>
 
                             <div className="acoes-funcionario">
-                                <button onClick={() => handleEditar(func)}>Editar</button>
-                                <button onClick={() => setFuncToDelete(func.id)}>Excluir</button>
-                                <button onClick={() => handleToggleAtivo(func.id)}>
+                                <button type="button" onClick={() => handleEditar(func)}>Editar</button>
+                                <button type="button" onClick={() => setFuncToDelete(func.id)}>Excluir</button>
+                                <button type="button" onClick={() => handleToggleAtivo(func.id)}>
                                     {func.ativo ? "Inativo" : "Ativo"}
                                 </button>
-                                <button onClick={() => alert("Abrir agenda do funcionário")}>Agenda</button>
+                                <button type="button" onClick={() => alert("Abrir agenda do funcionário")}>Agenda</button>
                             </div>
                         </div>
                     ))}
@@ -118,8 +162,8 @@ export default function FuncionarioPage() {
                     <div className="modal-confirm">
                         <div className="modal-content">
                             <p>Deseja realmente excluir este funcionário?</p>
-                            <button onClick={handleExcluirConfirmado}>Sim</button>
-                            <button onClick={handleCancelarExclusao}>Não</button>
+                            <button type="button" onClick={handleExcluirConfirmado}>Sim</button>
+                            <button type="button" onClick={handleCancelarExclusao}>Não</button>
                         </div>
                     </div>
                 )}

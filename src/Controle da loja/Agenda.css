@@ -11,6 +11,7 @@
   color: #D9C7B8;
   display: flex;
   flex-direction: column;
+  box-sizing: border-box;
 }
 
 .agenda-page h2 {
@@ -49,7 +50,6 @@
 }
 
 /* Seleção de barbeiro */
-
 .barbeiro-select {
   display: flex;
   gap: 10px;
@@ -77,16 +77,16 @@
 }
 
 /* Lista de horários com scroll */
-
 .agenda-list {
   flex: 1;
-  overflow-y: auto;
+  overflow: auto;
   padding-right: 5px;
 }
 
 .agenda-linha {
   display: grid;
   grid-template-columns: 80px 1fr 150px 150px auto;
+  min-width: 700px;
   align-items: center;
   padding: 10px;
   border-bottom: 1px solid #8C442A;
@@ -109,7 +109,6 @@
 }
 
 /* Botão adicionar */
-
 .btn-add {
   border: none;
   background: #BF925A;
@@ -120,7 +119,6 @@
 }
 
 /* Grupo de botões */
-
 .btn-grupo {
   display: flex;
   gap: 5px;
@@ -154,7 +152,6 @@
 }
 
 /* Overlay com blur */
-
 .card-overlay {
   position: fixed;
   top: 0;
@@ -177,17 +174,16 @@
 }
 
 @keyframes overlayFadeIn {
-  from {opacity:0}
-  to {opacity:1}
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 @keyframes overlayFadeOut {
-  from {opacity:1}
-  to {opacity:0}
+  from { opacity: 1; }
+  to { opacity: 0; }
 }
 
 /* Card de agendamento */
-
 .card-agendamento {
   background: #592F16;
   padding: 20px;
@@ -208,75 +204,59 @@
 }
 
 @keyframes cardZoomIn {
-  from {
-    transform: scale(0.8);
-    opacity: 0;
-  }
-
-  to {
-    transform: scale(1);
-    opacity: 1;
-  }
+  from { transform: scale(0.8); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
 }
 
 @keyframes cardZoomOut {
-  from {
-    transform: scale(1);
-    opacity: 1;
-  }
-
-  to {
-    transform: scale(0.8);
-    opacity: 0;
-  }
+  from { transform: scale(1); opacity: 1; }
+  to { transform: scale(0.8); opacity: 0; }
 }
 
 /* Formulário interno */
-
 .card-agendamento h3 {
   text-align: center;
   margin-bottom: 10px;
 }
 
 .card-agendamento label {
-  display:flex;
-  flex-direction:column;
-  font-size:14px;
+  display: flex;
+  flex-direction: column;
+  font-size: 14px;
 }
 
 .card-agendamento input,
 .card-agendamento select {
-  padding:6px;
-  margin-top:4px;
-  border-radius:4px;
-  border:1px solid #8C442A;
+  padding: 6px;
+  margin-top: 4px;
+  border-radius: 4px;
+  border: 1px solid #8C442A;
   background: #D9C7B8;
   color: #04090D;
 }
 
 .card-buttons {
-  display:flex;
-  justify-content:space-between;
-  margin-top:10px;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
 }
 
 .card-buttons button {
-  padding:6px 12px;
-  border:none;
-  border-radius:4px;
-  cursor:pointer;
-  background:#BF925A;
-  color:#04090D;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  background: #BF925A;
+  color: #04090D;
   transition: all 0.2s;
 }
 
 .card-buttons button:hover {
-  background:#8C442A;
-  color:#D9C7B8;
+  background: #8C442A;
+  color: #D9C7B8;
 }
 
 /* Scrollbar personalizada */
-
 .agenda-list::-webkit-scrollbar {
   width: 8px;
 }
@@ -290,4 +270,18 @@
   background-color: #8C442A;
   border-radius: 5px;
   border: 2px solid #04090D;
+}
+
+@media (max-width: 840px) {
+  .agenda-page {
+    margin: 90px 12px 16px;
+    height: auto;
+    min-height: calc(100vh - 110px);
+    max-width: none;
+  }
+
+  .data-select,
+  .barbeiro-select {
+    flex-wrap: wrap;
+  }
 }

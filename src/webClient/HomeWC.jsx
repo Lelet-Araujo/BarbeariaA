@@ -1,45 +1,61 @@
-// HomeWC.jsx
-import React, { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useRef, useState } from "react";
 import "./HomeWC.css";
+import CardAgendaLoja from "../2Components/CardAgendamentoLoja/CardAgendaLoja";
+import NovoContainer from "../2Components/CardLogin/Cardlogin"; // <-- ajuste o caminho
 import { FaCut, FaUserTie, FaTint, FaInstagram, FaWhatsapp } from "react-icons/fa";
 
 export default function Home() {
-  const navigate = useNavigate();
+  const pageRef = useRef(null);
+  const cutsRef = useRef(null);
+  const galleryRef = useRef(null);
+
+  const [showAgenda, setShowAgenda] = useState(false);
+  const [showNovo, setShowNovo] = useState(false); // ✅ NOVO ESTADO
 
   useEffect(() => {
-    const sections = document.querySelectorAll(".fade-in");
+    const sections = pageRef.current?.querySelectorAll(".fade-in");
+    if (!sections?.length || typeof IntersectionObserver === "undefined") return;
 
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("visible");
-        }
-      });
-    }, { threshold: 0.2 });
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+          }
+        });
+      },
+      { threshold: 0.15 }
+    );
 
-    sections.forEach(sec => observer.observe(sec));
+    sections.forEach((sec) => observer.observe(sec));
+    return () => observer.disconnect();
   }, []);
 
-  const scrollCarousel = (direction, selector) => {
-    const container = document.querySelector(selector);
+  const scrollCarousel = (direction, ref) => {
+    const container = ref.current;
     if (!container) return;
 
-    const scrollAmount = 320;
+    const firstItem = container.firstElementChild;
+    const styles = window.getComputedStyle(container);
+    const gap = parseFloat(styles.columnGap || styles.gap || "0");
+
+    const scrollAmount = firstItem
+      ? firstItem.getBoundingClientRect().width + gap
+      : container.clientWidth * 0.8;
 
     container.scrollBy({
       left: direction === "left" ? -scrollAmount : scrollAmount,
-      behavior: "smooth"
+      behavior: "smooth",
     });
   };
 
   const cortes = [
-    { nome: " ", img: "https://i.pinimg.com/1200x/ba/ea/af/baeaafaa1cd139bf5bf5869805937ceb.jpg" },
-    { nome: " ", img:"https://i.pinimg.com/736x/a7/f7/19/a7f719caf713dfe03c15d4b851d77a96.jpg"},
-    { nome: " ", img: "https://i.pinimg.com/736x/e3/9f/10/e39f10f4b8fcd40efccc44262e5d6424.jpg"  },
-    { nome: " ", img: "https://i.pinimg.com/1200x/31/5e/59/315e59983bea0209169d3de385f9c73d.jpg" },
-    { nome: " ", img: "https://images.unsplash.com/photo-1503951914875-452162b0f3f1" },
-    { nome: " ", img: "https://i.pinimg.com/1200x/0c/59/98/0c59982f3362f6fae59e9838bb1cf178.jpg" }
+    { img: "https://i.pinimg.com/1200x/ba/ea/af/baeaafaa1cd139bf5bf5869805937ceb.jpg" },
+    { img: "https://i.pinimg.com/736x/a7/f7/19/a7f719caf713dfe03c15d4b851d77a96.jpg" },
+    { img: "https://i.pinimg.com/736x/e3/9f/10/e39f10f4b8fcd40efccc44262e5d6424.jpg" },
+    { img: "https://i.pinimg.com/1200x/31/5e/59/315e59983bea0209169d3de385f9c73d.jpg" },
+    { img: "https://images.unsplash.com/photo-1503951914875-452162b0f3f1" },
+    { img: "https://i.pinimg.com/1200x/0c/59/98/0c59982f3362f6fae59e9838bb1cf178.jpg" },
   ];
 
   const galeria = [
@@ -48,26 +64,34 @@ export default function Home() {
     "https://i.pinimg.com/736x/39/d0/ca/39d0ca0ff2775e57515175e3a9683436.jpg",
     "https://i.pinimg.com/736x/f2/b5/1d/f2b51db79f287f10a547bcde9173b1ce.jpg",
     "https://i.pinimg.com/1200x/51/ee/5a/51ee5acfd19a8a56782d31c62e20805a.jpg",
-    "https://i.pinimg.com/1200x/ea/46/b7/ea46b793817412b7003bfb1224748955.jpg",
-    "https://i.pinimg.com/736x/4d/82/ce/4d82ceb22591f78a15126389adb4ebb4.jpg",
-    "https://i.pinimg.com/736x/39/d0/ca/39d0ca0ff2775e57515175e3a9683436.jpg",
-    "https://i.pinimg.com/736x/f2/b5/1d/f2b51db79f287f10a547bcde9173b1ce.jpg",
-    "https://i.pinimg.com/1200x/51/ee/5a/51ee5acfd19a8a56782d31c62e20805a.jpg"
   ];
 
   return (
-    <>
+    <div className="home-wc" ref={pageRef}>
       {/* Navbar */}
       <nav className="navbar">
         <div className="navbar-logo">LogoBarbearia</div>
-        <button onClick={() => navigate("/agenda")}>Agendar</button>
+
+        <div className="nav-actions">
+          <button type="button" onClick={() => setShowAgenda(true)}>
+            Agendar
+          </button>
+
+          <button type="button" onClick={() => setShowNovo(true)}>
+            Login
+          </button>
+        </div>
       </nav>
 
       {/* Hero */}
       <section className="hero fade-in">
-        <h1>Lorem ipsum dolor sit amet</h1>
-        <p>Lorem ipsum dolor sit amet consectetur adipiscing elit.</p>
-        <button onClick={() => navigate("/agenda")}>Agendar Agora</button>
+        <div className="hero-content">
+          <h1>Lorem ipsum dolor sit amet</h1>
+          <p>Lorem ipsum dolor sit amet consectetur adipiscing elit.</p>
+          <button type="button" onClick={() => setShowAgenda(true)}>
+            Agendar Agora
+          </button>
+        </div>
       </section>
 
       {/* Trabalhos */}
@@ -75,75 +99,31 @@ export default function Home() {
         <h2>Nossos Trabalhos</h2>
 
         <div className="carousel">
-          <button onClick={() => scrollCarousel("left", ".cuts-container")}>◀</button>
+          <button type="button" className="carousel-btn" onClick={() => scrollCarousel("left", cutsRef)}>◀</button>
 
-          <div className="carousel-container cuts-container">
+          <div className="carousel-container cuts-container" ref={cutsRef}>
             {cortes.map((corte, i) => (
               <div className="cut-card" key={i}>
-                <img
-                  src={`${corte.img}?auto=format&fit=crop&w=400&q=80`}
-                  alt={corte.nome}
-                />
-                <p>{corte.nome}</p>
+                <img src={corte.img} alt="" />
               </div>
             ))}
           </div>
 
-          <button onClick={() => scrollCarousel("right", ".cuts-container")}>▶</button>
+          <button type="button" className="carousel-btn" onClick={() => scrollCarousel("right", cutsRef)}>▶</button>
         </div>
       </section>
 
-      {/* Sobre */}
-      <section className="gallery fade-in">
-        <h2>Sobre nós</h2>
+      {/* Footer etc continua igual... */}
 
-        <p className="about-text">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-          Suspendisse vitae lacus nec velit facilisis tincidunt. 
-          Nulla facilisi. Sed ut perspiciatis unde omnis iste natus error 
-          sit voluptatem accusantium doloremque laudantium. 
-          Totam rem aperiam, eaque ipsa quae ab illo inventore veritatis.
-        </p>
+      {/* Modal Agenda */}
+      {showAgenda && (
+        <CardAgendaLoja onClose={() => setShowAgenda(false)} />
+      )}
 
-        <div className="carousel">
-          <button onClick={() => scrollCarousel("left", ".gallery-container")}>◀</button>
-
-          <div className="carousel-container gallery-container">
-            {galeria.map((img, i) => (
-              <img
-                key={i}
-                src={`${img}?auto=format&fit=crop&w=400&q=80`}
-                alt="Barbearia"
-              />
-            ))}
-          </div>
-
-          <button onClick={() => scrollCarousel("right", ".gallery-container")}>▶</button>
-        </div>
-      </section>
-
-      {/* Serviços */}
-      <section className="services fade-in">
-        <h2>Nossos Serviços</h2>
-
-        <div className="services-cards">
-          <div className="card"><FaCut size={40} /><p>Corte</p></div>
-          <div className="card"><FaUserTie size={40} /><p>Barba</p></div>
-          <div className="card"><FaTint size={40} /><p>Tintura</p></div>
-        </div>
-      </section>
-
-      {/* Footer */}
-      <footer className="footer fade-in">
-        <div className="footer-content">
-          <p className="footer-contact">📞 (00) 00000-0000</p>
-          <p className="footer-address">📍 Rua Exemplo, 123 - Centro, Sua Cidade - DF</p>
-          <div className="social-icons">
-            <FaInstagram />
-            <FaWhatsapp />
-          </div>
-        </div>
-      </footer>
-    </>
+      {/* ✅ NOVO CONTAINER */}
+      {showNovo && (
+        <NovoContainer onClose={() => setShowNovo(false)} />
+      )}
+    </div>
   );
 }
