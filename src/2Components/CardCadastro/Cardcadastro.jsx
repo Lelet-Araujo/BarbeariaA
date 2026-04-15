@@ -174,7 +174,9 @@ export default function CadastroCard({ onClose }) {
                 </div>
               </div>
 
-              <button className="login-btn register-btn">Cadastrar</button>
+              <button type="button" className="login-btn register-btn">
+                Cadastrar
+              </button>
             </div>
           </div>
         </div>

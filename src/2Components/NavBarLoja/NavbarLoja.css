@@ -1,5 +1,4 @@
-/* Navbar principal */
-.navbar {
+.navbar-loja {
   height: 60px;
   width: 100%;
   display: flex;
@@ -7,59 +6,56 @@
   justify-content: space-between;
   padding: 0 40px;
   background: rgba(4, 9, 13, 0.85);
-  border-bottom: 1px solid #BF925A;
+  border-bottom: 1px solid #bf925a;
   position: fixed;
   top: 0;
   left: 0;
   z-index: 500;
   box-sizing: border-box;
-  box-shadow: 0 3px 10px rgba(0,0,0,0.45);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.45);
 }
 
-/* Logo da navbar */
-.navbar-logo {
+.navbar-loja-logo {
   font-size: 20px;
   font-weight: 700;
-  color: #D9C7B8;
+  color: #d9c7b8;
 }
 
-/* Container para itens à direita */
-.navbar-right {
+.navbar-loja-right {
   display: flex;
-  gap: 20px; /* espaço entre os itens */
+  gap: 20px;
 }
 
-/* Cada item clicável */
-.navbar-right a {
+.navbar-loja-right a {
   font-size: 20px;
   font-weight: 500;
-  color: #D9C7B8;
+  color: #d9c7b8;
   text-decoration: none;
   transition: color 0.3s, transform 0.2s;
 }
 
-/* Hover elegante */
-.navbar-right a:hover {
-  color: #BF925A; 
-  cursor: pointer;
+.navbar-loja-right a:hover {
+  color: #bf925a;
 }
 
-/* Centraliza a logo horizontalmente */
-.navbar.navbar-center {
-  justify-content: center; 
-  padding: 0; 
-}
+@media (max-width: 700px) {
+  .navbar-loja {
+    height: auto;
+    min-height: 56px;
+    padding: 10px 14px;
+    flex-wrap: wrap;
+    gap: 8px 14px;
+  }
 
-/* Se quiser a logo central e os botões ainda distribuídos, pode fazer assim: */
-.navbar-center-container {
-  display: flex;
-  width: 100%;
-  justify-content: center; 
-  position: relative;
-}
+  .navbar-loja-logo {
+    font-size: 18px;
+  }
 
-.navbar-center-container .navbar-logo {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
+  .navbar-loja-right {
+    gap: 14px;
+  }
+
+  .navbar-loja-right a {
+    font-size: 16px;
+  }
 }

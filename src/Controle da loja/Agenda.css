@@ -1,16 +1,18 @@
 /* Página da agenda */
 .agenda-page {
   max-width: 800px;
-  height: 700px;
   width: 100%;
-  margin: 100px auto;
-  padding: 20px;
+  height: 760px;
+  margin: 95px auto 0 auto;
+  padding: 10px 25px 25px 25px;
   background: #04090D;
   border: 3px solid #BF925A;
   border-radius: 10px;
   color: #D9C7B8;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
   display: flex;
   flex-direction: column;
+  justify-content: flex-start;
   box-sizing: border-box;
 }
 

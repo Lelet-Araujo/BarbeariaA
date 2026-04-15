@@ -172,15 +172,15 @@ export default function AdminPanel() {
   };
 
   return (
-    <div className="container">
-      <nav className="navbar">
+    <div className="adm-home">
+      <nav className="adm-home-navbar">
         <span>Logo</span>
       </nav>
 
-      <div className="content">
+      <div className="adm-home-content">
         <h1>Painel de Lojas</h1>
 
-        <div className="actions">
+        <div className="adm-home-actions">
           <input
             placeholder="Buscar por nome ou telefone"
             value={search}
@@ -194,21 +194,25 @@ export default function AdminPanel() {
             <option>Suspensa</option>
           </select>
 
-          <button type="button" className="btn-primary" onClick={handleNewStore}>
+          <button
+            type="button"
+            className="adm-home-btn-primary"
+            onClick={handleNewStore}
+          >
             + Nova Loja
           </button>
         </div>
 
-        <div className="store-list">
+        <div className="adm-home-store-list">
           {filteredStores.map((store) => (
-            <div className="card" key={store.id}>
-              <div className="card-left">
+            <div className="adm-home-card" key={store.id}>
+              <div className="adm-home-card-left">
                 <h2>{store.name}</h2>
                 <p>CNPJ: {store.cnpj}</p>
                 <p>Telefone: {store.phone}</p>
 
-                <div className="status">
-                  Status: <span className={`badge ${store.status.toLowerCase()}`}>
+                <div className="adm-home-status">
+                  Status: <span className={`adm-home-badge ${store.status.toLowerCase()}`}>
                     {store.status}
                   </span>
                 </div>
@@ -216,16 +220,24 @@ export default function AdminPanel() {
                 <p>Cadastro: {store.createdAt}</p>
               </div>
 
-              <div className="card-actions">
-                <button type="button" className="btn edit" onClick={() => handleEdit(store)}>
+              <div className="adm-home-card-actions">
+                <button
+                  type="button"
+                  className="adm-btn adm-btn-edit"
+                  onClick={() => handleEdit(store)}
+                >
                   Editar
                 </button>
 
-                <button type="button" className="btn view">
+                <button type="button" className="adm-btn adm-btn-view">
                   Ver
                 </button>
 
-                <button type="button" className="btn delete" onClick={() => handleDeleteClick(store)}>
+                <button
+                  type="button"
+                  className="adm-btn adm-btn-delete"
+                  onClick={() => handleDeleteClick(store)}
+                >
                   Excluir
                 </button>
               </div>
@@ -237,7 +249,7 @@ export default function AdminPanel() {
       {/* Modal de edição */}
       {open && selectedStore && (
         <div className={`modal-overlay ${closingEdit ? "fechando" : ""}`}>
-          <div className="modal">
+          <div className="adm-home-modal">
             <h3>Editar Loja</h3>
 
             <input
@@ -299,12 +311,20 @@ export default function AdminPanel() {
               <option>Suspensa</option>
             </select>
 
-            <div className="modal-actions">
-              <button type="button" className="btn view" onClick={closeEditModal}>
+            <div className="adm-home-modal-actions">
+              <button
+                type="button"
+                className="adm-btn adm-btn-view"
+                onClick={closeEditModal}
+              >
                 Cancelar
               </button>
 
-              <button type="button" className="btn edit" onClick={handleSave}>
+              <button
+                type="button"
+                className="adm-btn adm-btn-edit"
+                onClick={handleSave}
+              >
                 Salvar
               </button>
             </div>
@@ -315,20 +335,24 @@ export default function AdminPanel() {
       {/* Modal de confirmação de exclusão */}
       {confirmOpen && storeToDelete && (
         <div className={`modal-overlay ${closingConfirm ? "fechando" : ""}`}>
-          <div className="modal confirm">
+          <div className="adm-home-modal adm-home-modal-confirm">
             <h3>Excluir Loja</h3>
             <p>Deseja excluir "{storeToDelete.name}"?</p>
 
-            <div className="modal-actions">
+            <div className="adm-home-modal-actions">
               <button
                 type="button"
-                className="btn view"
+                className="adm-btn adm-btn-view"
                 onClick={closeConfirmModal}
               >
                 Cancelar
               </button>
 
-              <button type="button" className="btn delete" onClick={confirmDelete}>
+              <button
+                type="button"
+                className="adm-btn adm-btn-delete"
+                onClick={confirmDelete}
+              >
                 Excluir
               </button>
             </div>
@@ -343,5 +367,3 @@ export default function AdminPanel() {
     </div>
   );
 }
-
-navbar

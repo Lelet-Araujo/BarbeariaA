@@ -4,10 +4,10 @@ import "./NavbarLoja.css";
 
 export default function NavbarSimples() {
   return (
-    <nav className="navbar">
-      <div className="navbar-logo">Logo</div>
+    <nav className="navbar-loja">
+      <div className="navbar-loja-logo">Logo</div>
 
-      <div className="navbar-right">
+      <div className="navbar-loja-right">
         <Link to="/funcionarios">Funcionário</Link>
         <Link to="/agenda">Agenda</Link>
       </div>

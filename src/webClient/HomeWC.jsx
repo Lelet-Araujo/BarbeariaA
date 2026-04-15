@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./HomeWC.css";
 import CardAgendaLoja from "../2Components/CardAgendamentoLoja/CardAgendaLoja";
-import NovoContainer from "../2Components/CardLogin/Cardlogin"; // <-- ajuste o caminho
+import NovoContainer from "../2Components/CardLogin/Cardlogin";
 import { FaCut, FaUserTie, FaTint, FaInstagram, FaWhatsapp } from "react-icons/fa";
 
 export default function Home() {
@@ -10,7 +10,7 @@ export default function Home() {
   const galleryRef = useRef(null);
 
   const [showAgenda, setShowAgenda] = useState(false);
-  const [showNovo, setShowNovo] = useState(false); // ✅ NOVO ESTADO
+  const [showNovo, setShowNovo] = useState(false);
 
   useEffect(() => {
     const sections = pageRef.current?.querySelectorAll(".fade-in");
@@ -104,7 +104,7 @@ export default function Home() {
           <div className="carousel-container cuts-container" ref={cutsRef}>
             {cortes.map((corte, i) => (
               <div className="cut-card" key={i}>
-                <img src={corte.img} alt="" />
+                <img src={corte.img} alt={`Corte ${i + 1}`} loading="lazy" />
               </div>
             ))}
           </div>
@@ -113,14 +113,73 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Footer etc continua igual... */}
+      <section className="gallery fade-in">
+        <h2>Galeria</h2>
+        <div className="carousel">
+          <button type="button" className="carousel-btn" onClick={() => scrollCarousel("left", galleryRef)}>◀</button>
+
+          <div className="carousel-container gallery-container" ref={galleryRef}>
+            {galeria.map((img, i) => (
+              <img key={i} src={img} alt={`Galeria ${i + 1}`} loading="lazy" />
+            ))}
+          </div>
+
+          <button type="button" className="carousel-btn" onClick={() => scrollCarousel("right", galleryRef)}>▶</button>
+        </div>
+      </section>
+
+      <section className="services fade-in">
+        <h2>Serviços</h2>
+        <div className="services-cards">
+          <article className="service-card">
+            <FaCut size={28} />
+            <h3>Corte</h3>
+            <p>Cortes modernos e clássicos com acabamento detalhado.</p>
+          </article>
+
+          <article className="service-card">
+            <FaUserTie size={28} />
+            <h3>Barba</h3>
+            <p>Modelagem e alinhamento para um visual sempre impecável.</p>
+          </article>
+
+          <article className="service-card">
+            <FaTint size={28} />
+            <h3>Tratamentos</h3>
+            <p>Hidratação e cuidados para cabelo e barba com qualidade.</p>
+          </article>
+        </div>
+      </section>
+
+      <section className="about fade-in">
+        <h2>Sobre Nós</h2>
+        <p className="about-text">
+          Nossa barbearia une tradição e estilo em um ambiente moderno, focado
+          em atendimento de qualidade e experiência completa para cada cliente.
+        </p>
+      </section>
+
+      <footer className="footer">
+        <div className="footer-content">
+          <p>Rua Exemplo, 123 - Centro</p>
+          <p>Segunda a Sábado: 09h às 20h</p>
+
+          <div className="social-icons">
+            <a href="#" aria-label="Instagram">
+              <FaInstagram />
+            </a>
+            <a href="#" aria-label="WhatsApp">
+              <FaWhatsapp />
+            </a>
+          </div>
+        </div>
+      </footer>
 
       {/* Modal Agenda */}
       {showAgenda && (
         <CardAgendaLoja onClose={() => setShowAgenda(false)} />
       )}
 
-      {/* ✅ NOVO CONTAINER */}
       {showNovo && (
         <NovoContainer onClose={() => setShowNovo(false)} />
       )}

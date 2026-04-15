@@ -1,9 +1,4 @@
-body {
-  margin: 0;
-  font-family: Arial, Helvetica, sans-serif;
-}
-
-.container {
+.agenda-loja-modal {
   position: fixed;
   top: 0;
   left: 0;
@@ -11,253 +6,227 @@ body {
   height: 100vh;
   padding: 16px;
   box-sizing: border-box;
-
   display: flex;
   justify-content: center;
   align-items: center;
-
   overflow: hidden;
   z-index: 9999;
-
   background: rgba(0, 0, 0, 0.2);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
+  animation: fadeIn 0.3s ease;
 }
 
-.agendamento-card {
-  width: min(400px, 100%);
+.agenda-loja-modal.fechando {
+  animation: fadeOut 0.3s ease forwards;
+}
+
+.agenda-loja-modal .agenda-loja-card {
+  width: min(420px, 100%);
   max-height: calc(100vh - 32px);
   padding: 30px 24px;
   border-radius: 12px;
-
-  background: linear-gradient(150deg, #04090D, #D9C7B8);
-  box-shadow: 0 10px 30px rgba(4, 9, 13, 0.5),
-              0 4px 15px rgba(4, 9, 13, 0.3);
-
-  color: #D9C7B8;
-
+  background: linear-gradient(150deg, #04090d, #d9c7b8);
+  box-shadow:
+    0 10px 30px rgba(4, 9, 13, 0.5),
+    0 4px 15px rgba(4, 9, 13, 0.3);
+  color: #d9c7b8;
   position: relative;
-
   display: flex;
   flex-direction: column;
   align-items: center;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
+  animation: zoomIn 0.3s ease;
 }
 
-.agendamento-card h2 {
+.agenda-loja-modal .agenda-loja-card.fechando {
+  animation: zoomOut 0.3s ease forwards;
+}
+
+.agenda-loja-modal .agenda-loja-card h2 {
   margin-bottom: 20px;
   font-size: clamp(24px, 5vw, 28px);
   text-align: center;
-  color: #BF925A;
+  color: #bf925a;
 }
 
-/* Inputs */
-
-.input-group {
+.agenda-loja-modal .input-group {
   width: 100%;
   margin-bottom: 18px;
   display: flex;
   flex-direction: column;
 }
 
-.input-group label {
+.agenda-loja-modal .input-group label {
   margin-bottom: 6px;
   font-size: 14px;
-  color: #BF925A;
+  color: #bf925a;
 }
 
-.input-with-icon {
+.agenda-loja-modal .input-with-icon {
   position: relative;
   width: 100%;
 }
 
-.input-with-icon input,
-.input-with-icon select {
+.agenda-loja-modal .input-with-icon input,
+.agenda-loja-modal .input-with-icon select {
   width: 100%;
   padding: 10px 40px 10px 10px;
-
   border-radius: 20px;
-  border: 2px solid #BF925A;
-
+  border: 2px solid #bf925a;
   background: transparent;
-  color: #D9C7B8;
-
+  color: #d9c7b8;
   font-size: 16px;
   box-sizing: border-box;
-
   appearance: none;
 }
 
-.input-with-icon input::placeholder {
+.agenda-loja-modal .input-with-icon input::placeholder {
   color: rgba(217, 199, 184, 0.5);
 }
 
-.input-with-icon select option {
-  color: #04090D;
+.agenda-loja-modal .input-with-icon select option {
+  color: #04090d;
 }
 
-/* Ícones dentro dos inputs */
-
-.icon-right {
+.agenda-loja-modal .icon-right {
   position: absolute;
   right: 12px;
   top: 50%;
   transform: translateY(-50%);
-
   width: 20px;
   height: 20px;
-
   filter: brightness(0) invert(1);
   cursor: pointer;
 }
 
-/* Select com seta customizada */
-
-.select-barbeiro {
+.agenda-loja-modal .select-barbeiro {
   cursor: pointer;
   background-image: url("data:image/svg+xml;utf8,<svg fill='%23D9C7B8' height='20' viewBox='0 0 24 24' width='20' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
   background-repeat: no-repeat;
   background-position: right 12px center;
 }
 
-/* Inputs de data e hora */
-
-input[type="date"],
-input[type="time"] {
+.agenda-loja-modal input[type="date"],
+.agenda-loja-modal input[type="time"] {
   -webkit-appearance: none;
   -moz-appearance: textfield;
   appearance: none;
-
   background: transparent;
-  color: #D9C7B8;
-
-  border: 2px solid #BF925A;
+  color: #d9c7b8;
+  border: 2px solid #bf925a;
   border-radius: 20px;
-
   padding: 10px 40px 10px 10px;
   font-size: 16px;
 }
 
-/* Remove ícones nativos */
-
-input[type="date"]::-webkit-inner-spin-button,
-input[type="date"]::-webkit-calendar-picker-indicator,
-input[type="time"]::-webkit-inner-spin-button,
-input[type="time"]::-webkit-calendar-picker-indicator {
+.agenda-loja-modal input[type="date"]::-webkit-inner-spin-button,
+.agenda-loja-modal input[type="date"]::-webkit-calendar-picker-indicator,
+.agenda-loja-modal input[type="time"]::-webkit-inner-spin-button,
+.agenda-loja-modal input[type="time"]::-webkit-calendar-picker-indicator {
   display: none;
   -webkit-appearance: none;
 }
 
-/* Botões */
-
-.agendar-btn,
-.reagendar-btn {
+.agenda-loja-modal .agendar-btn,
+.agenda-loja-modal .reagendar-btn {
   width: 100%;
   padding: 12px;
   margin-top: 10px;
-
   border-radius: 20px;
   border: none;
-
-  background-color: #BF925A;
-  color: #04090D;
-
+  background-color: #bf925a;
+  color: #04090d;
   font-weight: bold;
   cursor: pointer;
-
   transition: 0.3s;
 }
 
-.agendar-btn:hover,
-.reagendar-btn:hover {
-  background-color: #8C442A;
+.agenda-loja-modal .agendar-btn:hover,
+.agenda-loja-modal .reagendar-btn:hover {
+  background-color: #8c442a;
 }
 
-/* Botão fechar */
-
-.close-icon {
+.agenda-loja-modal .close-icon {
   position: absolute;
   top: 18px;
   right: 18px;
-
   width: 28px;
   height: 28px;
-
   cursor: pointer;
   filter: brightness(0) invert(1);
   transition: 0.3s;
 }
 
-.close-icon:hover {
+.agenda-loja-modal .close-icon:hover {
   filter: brightness(1) invert(0);
 }
 
-.input-erro {
+.agenda-loja-modal .input-erro {
   border: 2px solid #ff4d4f !important;
 }
 
-.erro-texto {
+.agenda-loja-modal .erro-texto {
   color: #ff4d4f;
   font-size: 12px;
   margin-top: 4px;
 }
 
-@media (max-width: 480px) {
-  .container {
+@media (max-width: 640px) {
+  .agenda-loja-modal {
     padding: 12px;
   }
 
-  .agendamento-card {
+  .agenda-loja-modal .agenda-loja-card {
     max-height: calc(100vh - 24px);
     padding: 22px 16px;
     border-radius: 10px;
   }
 
-  .input-group {
+  .agenda-loja-modal .input-group {
     margin-bottom: 14px;
   }
 
-  .close-icon {
+  .agenda-loja-modal .close-icon {
     top: 12px;
     right: 12px;
     width: 24px;
     height: 24px;
   }
 
-  .icon-right {
+  .agenda-loja-modal .icon-right {
     right: 10px;
     width: 18px;
     height: 18px;
   }
 }
 
-/* ANIMAÇÃO OVERLAY */
-.container {
-  animation: fadeIn 0.3s ease;
-}
-
-.container.fechando {
-  animation: fadeOut 0.3s ease forwards;
+@media (max-width: 420px) {
+  .agenda-loja-modal .agendar-btn,
+  .agenda-loja-modal .reagendar-btn {
+    font-size: 14px;
+  }
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes fadeOut {
-  from { opacity: 1; }
-  to { opacity: 0; }
-}
+  from {
+    opacity: 1;
+  }
 
-/* ANIMAÇÃO CARD (ZOOM) */
-.agendamento-card {
-  animation: zoomIn 0.3s ease;
-}
-
-.agendamento-card.fechando {
-  animation: zoomOut 0.3s ease forwards;
+  to {
+    opacity: 0;
+  }
 }
 
 @keyframes zoomIn {
@@ -265,6 +234,7 @@ input[type="time"]::-webkit-calendar-picker-indicator {
     transform: scale(0.7);
     opacity: 0;
   }
+
   to {
     transform: scale(1);
     opacity: 1;
@@ -276,9 +246,9 @@ input[type="time"]::-webkit-calendar-picker-indicator {
     transform: scale(1);
     opacity: 1;
   }
+
   to {
     transform: scale(0.7);
     opacity: 0;
   }
 }
-

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "../CardLogin/Cardlogin.css";
 
 import user from "../../1Assets/user.png";
@@ -8,15 +9,32 @@ import show from "../../1Assets/show.png";
 
 export default function LoginCard({ onClose }) {
   const [mostrarSenhaLogin, setMostrarSenhaLogin] = useState(false);
+  const [fechando, setFechando] = useState(false);
+  const navigate = useNavigate();
+
+  const fecharComAnimacao = (callback, fecharPai = true) => {
+    if (fechando) return;
+
+    setFechando(true);
+    setTimeout(() => {
+      callback?.();
+      if (fecharPai) onClose?.();
+    }, 300);
+  };
+
   const fecharModal = () => {
-    onClose?.();
+    fecharComAnimacao();
+  };
+
+  const entrar = () => {
+    fecharComAnimacao(() => navigate("/agenda"), false);
   };
 
   return (
-    <div className="login-card-modal">
+    <div className={`login-card-modal ${fechando ? "fechando" : ""}`}>
       <div className="container">
         <div className="login-card-wrapper">
-          <div className="login-card-front">
+          <div className={`login-card-front ${fechando ? "fechando" : ""}`}>
             <img
               src={closeIcon}
               alt="Fechar"
@@ -58,7 +76,9 @@ export default function LoginCard({ onClose }) {
                 </div>
               </div>
 
-              <button type="button" className="login-btn">Entrar</button>
+              <button type="button" className="login-btn" onClick={entrar}>
+                Entrar
+              </button>
             </div>
           </div>
         </div>

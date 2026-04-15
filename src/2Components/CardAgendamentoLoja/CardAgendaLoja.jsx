@@ -97,6 +97,8 @@ export default function CardAgendamento({ onClose }) {
   };
 
   const fecharComAnimacao = () => {
+    if (fechando) return;
+
     setFechando(true);
     setTimeout(() => {
       onClose();
@@ -104,8 +106,8 @@ export default function CardAgendamento({ onClose }) {
   };
 
   return (
-    <div className={`container ${fechando ? "fechando" : ""}`}>
-      <div className={`agendamento-card ${fechando ? "fechando" : ""}`}>
+    <div className={`agenda-loja-modal ${fechando ? "fechando" : ""}`}>
+      <div className={`agenda-loja-card ${fechando ? "fechando" : ""}`}>
         <img
           src={closeIcon}
           alt="Fechar"
