@@ -8,7 +8,6 @@ import show from "../../1Assets/show.png";
 import arrow from "../../1Assets/arrow.png";
 import email from "../../1Assets/email.png";
 import phone from "../../1Assets/phone.png";
-import padlock from "../../1Assets/padlock.png";
 
 
 export default function LoginCard({ onClose }) {
@@ -166,7 +165,6 @@ export default function LoginCard({ onClose }) {
                           e.target.value = `(${x}`;
                         }
 
-                        setTelefone(e.target.value);
                       }}
                     />
                     <img src={phone} alt="Telefone" className="icon-right" />

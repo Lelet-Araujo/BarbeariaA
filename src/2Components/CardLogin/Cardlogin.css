@@ -1,0 +1,267 @@
+/********************************************************** GERAL **********************************************************/
+.login-card-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  padding: 16px;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  z-index: 9999;
+  font-family: Arial, Helvetica, sans-serif;
+  background: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  animation: fadeIn 0.3s ease;
+}
+
+.login-card-modal.fechando {
+  animation: fadeOut 0.3s ease forwards;
+}
+
+.login-card-modal .container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/********************************************************** CARD **********************************************************/
+.login-card-modal .login-card-wrapper {
+  width: min(900px, 100%);
+  max-height: calc(100vh - 32px);
+  position: relative;
+}
+
+.login-card-modal .login-card-front {
+  width: 100%;
+  min-height: 520px;
+  max-height: calc(100vh - 32px);
+  display: flex;
+  justify-content: center;
+  padding: 40px;
+  border-radius: 10px;
+  color: #D9C7B8;
+  background: linear-gradient(150deg, #04090D, #592F16, #BF925A);
+  box-shadow: 0 10px 30px rgba(4, 9, 13, 0.5), 0 4px 15px rgba(4, 9, 13, 0.3);
+  box-sizing: border-box;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  animation: zoomIn 0.3s ease;
+}
+
+.login-card-modal .login-card-front.fechando {
+  animation: zoomOut 0.3s ease forwards;
+}
+
+/********************************************************** CONTEÚDO **********************************************************/
+.login-card-modal .login-left {
+  width: 100%;
+  max-width: 720px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-card-modal .login-left h2 {
+  width: 350px;
+  margin-bottom: 10px;
+  font-size: 35px;
+  color: #BF925A;
+  text-shadow: 3px 3px 8px #04090D, 0 0 10px #BF925A;
+  text-align: center;
+}
+
+/********************************************************** FORMULÁRIOS **********************************************************/
+.login-card-modal .input-group {
+  width: 280px;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+.login-card-modal .input-group label {
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+
+.login-card-modal .input-group input {
+  width: 100%;
+  padding: 12px 35px 12px 10px;
+  border: 2px solid #BF925A;
+  border-radius: 20px;
+  background: transparent;
+  color: rgba(217, 199, 184, 0.85);
+  font-size: 15px;
+  box-sizing: border-box;
+}
+
+.login-card-modal .input-group input::placeholder {
+  color: rgba(217, 199, 184, 0.5);
+}
+
+.login-card-modal .input-with-icon {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 280px;
+}
+
+.login-card-modal .input-with-icon input {
+  width: 100%;
+}
+
+.login-card-modal .input-with-icon .icon-right {
+  position: absolute;
+  right: 12px;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  filter: brightness(0) invert(1);
+  transition: 0.3s;
+}
+
+.login-card-modal .input-with-icon .icon-right:hover {
+  filter: brightness(1.2) invert(1);
+}
+
+/********************************************************** OPÇÕES **********************************************************/
+.login-card-modal .options {
+  width: 280px;
+  display: flex;
+  justify-content: space-between;
+  margin: 5px 0;
+  font-size: 13px;
+}
+
+.login-card-modal .options label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.login-card-modal .options a {
+  color: #BF925A;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.login-card-modal .options a:hover {
+  color: #D9C7B8;
+}
+
+.login-card-modal .options input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  accent-color: #BF925A;
+}
+
+/********************************************************** BOTÃO **********************************************************/
+.login-card-modal .login-btn {
+  width: 280px;
+  margin-top: 15px;
+  padding: 12px;
+  border-radius: 20px;
+  border: none;
+  background: #BF925A;
+  font-size: 16px;
+  font-weight: bold;
+  color: #04090D;
+  cursor: pointer;
+  transition: 0.3s;
+  box-sizing: border-box;
+}
+
+.login-card-modal .login-btn:hover {
+  background: #8C442A;
+}
+
+/*********************************************************** ÍCONE **********************************************************/
+.login-card-modal .close-icon {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  width: 28px;
+  height: 28px;
+  cursor: pointer;
+  z-index: 10;
+  filter: brightness(0) invert(85%) sepia(12%) saturate(200%) hue-rotate(350deg);
+  transition: 0.3s;
+}
+
+.login-card-modal .close-icon:hover {
+  filter: brightness(0) saturate(100%) invert(72%) sepia(34%) saturate(512%) hue-rotate(352deg) brightness(92%) contrast(90%);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+@keyframes zoomIn {
+  from {
+    transform: scale(0.7);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes zoomOut {
+  from {
+    transform: scale(1);
+    opacity: 1;
+  }
+  to {
+    transform: scale(0.7);
+    opacity: 0;
+  }
+}
+
+@media (max-width: 960px) {
+  .login-card-modal .login-card-wrapper {
+    width: min(900px, 100%);
+    height: auto;
+  }
+
+  .login-card-modal .login-card-front {
+    min-height: auto;
+    padding: 28px 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .login-card-modal {
+    padding: 12px;
+  }
+
+  .login-card-modal .login-card-front {
+    max-height: calc(100vh - 24px);
+    padding: 22px 16px;
+  }
+}
+
+@media (max-width: 520px) {
+  .login-card-modal .login-left h2 {
+    width: 100%;
+    font-size: 28px;
+  }
+
+  .login-card-modal .input-group,
+  .login-card-modal .input-with-icon,
+  .login-card-modal .login-btn {
+    width: min(280px, 80vw);
+  }
+}
