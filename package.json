@@ -7,7 +7,9 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "cy:open": "set APPDATA=.cache/AppData&& set CYPRESS_CACHE_FOLDER=.cache/Cypress&& cypress open",
+    "cy:run": "set APPDATA=.cache/AppData&& set CYPRESS_CACHE_FOLDER=.cache/Cypress&& cypress run --browser electron"
   },
   "dependencies": {
     "html2canvas": "^1.4.1",
@@ -26,6 +28,7 @@
     "eslint-plugin-react-hooks": "^7.0.1",
     "eslint-plugin-react-refresh": "^0.4.24",
     "globals": "^16.5.0",
+    "cypress": "^15.15.0",
     "vite": "^7.3.1"
   }
 }
